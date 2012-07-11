@@ -1,0 +1,25 @@
+## Ignore the jama.jar package - must be downloaded at
+## http://math.nist.gov/javanumerics/jama/#Package
+Jama-*.jar
+
+#IDE files to ignore (Netbeans, Eclipse)
+#Source directory should be ignored too
+.classpath
+.project
+.settings
+
+#ignore generated .class files
+*.class
+
+#ignore bin and target folders
+target/
+
+#except this file
+!.gitignore
+
+# generic files to ignore
+# backup files (*~) and MacOS dir file (.DS_Store)
+*~
+*.lock
+*.DS_Store
+*.out
