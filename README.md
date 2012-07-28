@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/[muuki88]/jama-osgi.png)](http://travis-ci.org/[muuki88]/[jama-osgi])
+
 ## Tycho build for the Jama matrix library
 
 This project is a fork of [Jama](http://math.nist.gov/javanumerics/jama/) and provides
