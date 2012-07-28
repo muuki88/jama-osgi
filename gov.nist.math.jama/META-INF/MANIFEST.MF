@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Jama
 Bundle-SymbolicName: gov.nist.math.jama
 Bundle-Version: 1.0.2
-Export-Package: Jama,
- Jama.examples,
- Jama.util
+Export-Package: Jama;version="1.0.2",
+ Jama.examples;version="1.0.2",
+ Jama.util;version="1.0.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .
