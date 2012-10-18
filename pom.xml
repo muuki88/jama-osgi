@@ -17,10 +17,18 @@
   </modules>
 
   <distributionManagement>
+        <!-- use the following if you're not using a snapshot version. -->
     <repository>
-      <id>ftp-repository</id>
-      <url>ftp://mukis.de</url>
+      <id>nexus</id>
+      <name>RepositoryProxy</name>
+      <url>http://metropolis:8081/nexus/content/repositories/thirdparty</url>
     </repository>
+        <!-- use the following if you ARE using a snapshot version. -->
+    <snapshotRepository>
+      <id>nexus</id>
+      <name>RepositoryProxy</name>
+      <url>http://metropolis:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <build>
@@ -32,14 +40,6 @@
         <extensions>true</extensions>
       </plugin>
     </plugins>
-  <!-- Enabling the use of FTP -->
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-         <artifactId>wagon-ftp</artifactId>
-         <version>${wagon.version}</version>
-      </extension>
-    </extensions>
   </build>
 	<pluginRepositories>
 		<pluginRepository>
