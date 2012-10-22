@@ -8,7 +8,7 @@
 		<artifactId>jama-osgi</artifactId>
 		<version>1.0.2</version>
 	</parent>
-	<artifactId>jama</artifactId>
+	<artifactId>gov.nist.math.jama</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<url>http://math.nist.gov/javanumerics/jama/</url>
 
@@ -139,4 +139,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<version>1.1.0</version>
 </project>
