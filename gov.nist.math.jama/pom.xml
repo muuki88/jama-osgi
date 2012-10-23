@@ -12,6 +12,10 @@
 	<packaging>eclipse-plugin</packaging>
 	<url>http://math.nist.gov/javanumerics/jama/</url>
 
+	<properties>
+		<skipSigning>true</skipSigning>
+	</properties>
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -115,6 +119,10 @@
 						</goals>
 					</execution>
 				</executions>
+				<!-- This must commented -->
+				<configuration>
+					<skip>${skipSigning}</skip>
+				</configuration>
 			</plugin>
 
 			<!-- Assembly to single jar -->
