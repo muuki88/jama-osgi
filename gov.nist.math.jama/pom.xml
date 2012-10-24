@@ -8,6 +8,7 @@
 		<artifactId>jama-osgi</artifactId>
 		<version>1.0.2</version>
 	</parent>
+	<groupId>gov.nist.math</groupId>
 	<artifactId>gov.nist.math.jama</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<url>http://math.nist.gov/javanumerics/jama/</url>
@@ -72,7 +73,6 @@
 			<email>nepomuk.seiler@gmail.com</email>
 		</developer>
 	</developers>
-	<groupId>gov.nist.math</groupId>
 
 	<build>
 		<plugins>
