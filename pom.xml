@@ -1,48 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>gov.nist.math.jama</groupId>
-  <artifactId>jama-osgi</artifactId>
-  <version>1.0.2</version>
-  <packaging>pom</packaging>
-  <properties>
-    <maven.compiler.source>1.7</maven.compiler.source>
-  	<maven.compiler.target>1.7</maven.compiler.target>
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho.version>0.16.0</tycho.version>
-  </properties>
-  <modules>
-    <module>gov.nist.math.jama</module>
-    <module>gov.nist.math.jama.feature</module>
-    <module>gov.nist.math.jama.site</module>
-  </modules>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>gov.nist.math.jama</groupId>
+	<artifactId>jama-osgi</artifactId>
+	<version>1.0.2</version>
+	<packaging>pom</packaging>
+	<properties>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho.version>0.16.0</tycho.version>
+	</properties>
+	<modules>
+		<module>gov.nist.math.jama</module>
+		<module>gov.nist.math.jama.feature</module>
+		<module>gov.nist.math.jama.site</module>
+	</modules>
 
-  <distributionManagement>
-        <!-- use the following if you're not using a snapshot version. -->
-    <repository>
-      <id>nexus</id>
-      <name>RepositoryProxy</name>
-      <url>http://metropolis:8081/nexus/content/repositories/thirdparty</url>
-    </repository>
-        <!-- use the following if you ARE using a snapshot version. -->
-    <snapshotRepository>
-      <id>nexus</id>
-      <name>RepositoryProxy</name>
-      <url>http://metropolis:8081/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
+	<distributionManagement>
+		<!-- use the following if you're not using a snapshot version. -->
+		<repository>
+			<id>nexus</id>
+			<name>RepositoryProxy</name>
+			<url>http://metropolis:8081/nexus/content/repositories/thirdparty</url>
+		</repository>
+		<!-- use the following if you ARE using a snapshot version. -->
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>RepositoryProxy</name>
+			<url>http://metropolis:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-maven-plugin</artifactId>
-        <version>${tycho.version}</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>tycho-snapshots</id>
