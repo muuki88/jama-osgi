@@ -7,21 +7,16 @@ import java.io.StreamTokenizer;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Locale;
 
-import Jama.CholeskyDecomposition;
-import Jama.EigenvalueDecomposition;
-import Jama.LUDecomposition;
-import Jama.QRDecomposition;
-import Jama.SingularValueDecomposition;
-
 /**
- * Matrix which stores values only with double precision.
- * This saves ~50% memory space in comparison to double precision.
+ * Matrix which stores values only with double precision. This saves ~50% memory
+ * space in comparison to double precision.
  * 
  * @author Nepomuk Seiler
  * @since 1.1.0
- *
+ * 
  */
 public class FloatMatrix implements Cloneable, Serializable {
 
@@ -577,7 +572,7 @@ public class FloatMatrix implements Cloneable, Serializable {
 	public float norm2() {
 		// FIXME
 		// return (new SingularValueDecomposition(this).norm2());
-		//return 0f;
+		// return 0f;
 		throw new UnsupportedOperationException("Not implemented with float yet");
 	}
 
@@ -612,7 +607,7 @@ public class FloatMatrix implements Cloneable, Serializable {
 		 * for (int i = 0; i < m; i++) { for (int j = 0; j < n; j++) { f =
 		 * Maths.hypot(f, A[i][j]); } }
 		 */
-		//return f;
+		// return f;
 		throw new UnsupportedOperationException("Not implemented with float yet");
 	}
 
@@ -1007,7 +1002,7 @@ public class FloatMatrix implements Cloneable, Serializable {
 	public float det() {
 		// return new LUDecomposition(this).det();
 		// FIXME
-		//return 0f;
+		// return 0f;
 		throw new UnsupportedOperationException("Not implemented with float yet");
 	}
 
@@ -1020,8 +1015,9 @@ public class FloatMatrix implements Cloneable, Serializable {
 	public int rank() {
 		// return new SingularValueDecomposition(this).rank();
 		// FIXME
-		//throw new UnsupportedOperationException("Not implemented with float yet");
-		//return 0;
+		// throw new
+		// UnsupportedOperationException("Not implemented with float yet");
+		// return 0;
 		throw new UnsupportedOperationException("Not implemented with float yet");
 	}
 
@@ -1035,7 +1031,7 @@ public class FloatMatrix implements Cloneable, Serializable {
 		// return new SingularValueDecomposition(this).cond();
 		// FIXME
 		throw new UnsupportedOperationException("Not implemented with float yet");
-		//return 0f;
+		// return 0f;
 	}
 
 	/**
@@ -1244,9 +1240,35 @@ public class FloatMatrix implements Cloneable, Serializable {
 		return new FloatMatrix(A);
 	}
 
-	/*
-	 * ------------------------ Private Methods ------------------------
-	 */
+	/* ================================================ */
+	/* ============= Hashcode and Equals ============== */
+	/* ================================================ */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(A);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FloatMatrix other = (FloatMatrix) obj;
+		if (!Arrays.deepEquals(A, other.A))
+			return false;
+		return true;
+	}
+
+	/* ================================================ */
+	/* ============= Private Methods ================== */
+	/* ================================================ */
 
 	/** Check if size(A) == size(B) **/
 
