@@ -1,179 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>gov.nist.math.jama</groupId>
-		<artifactId>jama-osgi</artifactId>
-		<version>1.0.2</version>
-	</parent>
-	<groupId>gov.nist.math</groupId>
-	<artifactId>gov.nist.math.jama</artifactId>
-	<packaging>eclipse-plugin</packaging>
-	<url>http://math.nist.gov/javanumerics/jama/</url>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>gov.nist.math.jama</groupId>
+        <artifactId>jama-osgi</artifactId>
+        <version>1.0.2</version>
+    </parent>
+    <groupId>gov.nist.math</groupId>
+    <artifactId>gov.nist.math.jama</artifactId>
+    <packaging>eclipse-plugin</packaging>
+    <url>http://math.nist.gov/javanumerics/jama/</url>
 
-	<properties>
-		<skipSigning>true</skipSigning>
-		<manifest-location>META-INF</manifest-location>
-	</properties>
+    <properties>
+        <skipSigning>true</skipSigning>
+        <manifest-location>META-INF</manifest-location>
+    </properties>
 
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://opensource.org/licenses/BSD-3-Clause</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<scm>
-		<url>https://github.com/muuki88/jama-osgi</url>
-		<connection>git://github.com/muuki88/jama-osgi.git</connection>
-	</scm>
+    <scm>
+        <url>https://github.com/muuki88/jama-osgi</url>
+        <connection>git://github.com/muuki88/jama-osgi.git</connection>
+    </scm>
 
-	<developers>
-		<developer>
-			<id>jHicklin</id>
-			<name>Joe Hicklin</name>
-			<email></email>
-		</developer>
-		<developer>
-			<id>cmoler</id>
-			<name>Cleve Moler</name>
-			<email></email>
-		</developer>
-		<developer>
-			<id>pwebb</id>
-			<name>Peter Webb</name>
-			<email></email>
-		</developer>
-		<developer>
-			<id>rboisvert</id>
-			<name>Ronald F. Boisvert </name>
-			<email>boisvert@nist.gov</email>
-		</developer>
-		<developer>
-			<id>bmiller</id>
-			<name>Bruce Miller </name>
-			<email>bruce.miller@nist.gov</email>
-		</developer>
-		<developer>
-			<id>rpozo</id>
-			<name>Roldan Pozob</name>
-			<email>pozo@nist.gov</email>
-		</developer>
-		<developer>
-			<id>kremington</id>
-			<name>Dr. Karin A. Remington</name>
-			<email>kremington@nist.gov</email>
-		</developer>
-		<developer>
-			<id>nseiler</id>
-			<name>Nepomuk Seiler</name>
-			<email>nepomuk.seiler@gmail.com</email>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>jHicklin</id>
+            <name>Joe Hicklin</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>cmoler</id>
+            <name>Cleve Moler</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>pwebb</id>
+            <name>Peter Webb</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>rboisvert</id>
+            <name>Ronald F. Boisvert </name>
+            <email>boisvert@nist.gov</email>
+        </developer>
+        <developer>
+            <id>bmiller</id>
+            <name>Bruce Miller </name>
+            <email>bruce.miller@nist.gov</email>
+        </developer>
+        <developer>
+            <id>rpozo</id>
+            <name>Roldan Pozob</name>
+            <email>pozo@nist.gov</email>
+        </developer>
+        <developer>
+            <id>kremington</id>
+            <name>Dr. Karin A. Remington</name>
+            <email>kremington@nist.gov</email>
+        </developer>
+        <developer>
+            <id>nseiler</id>
+            <name>Nepomuk Seiler</name>
+            <email>nepomuk.seiler@gmail.com</email>
+        </developer>
+    </developers>
 
-	<build>
-		<plugins>
-			<!-- Attached source.jar -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+    <build>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+        <plugins>
+            <!-- plain surefire tests without tycho -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                    <executions>
+                        <execution>
+                            <id>test</id>
+                            <phase>test</phase>
+                            <configuration>
+                                <includes>
+                                    <include>**/*Test.java</include>
+                                </includes>
+                            </configuration>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-			<!-- Attached javadoc.jar -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <executions>
+                        <execution>
+                            <id>compiletests</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Consider pom dependencies -->
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>target-platform-configuration</artifactId>
+                    <version>${tycho.version}</version>
+                    <configuration>
+                        <pomDependencies>consider</pomDependencies>
+                    </configuration>
+                </plugin>
 
-			<!-- Sign jars with pgp -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.4</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-				<!-- This must commented -->
-				<configuration>
-					<skip>${skipSigning}</skip>
-				</configuration>
-			</plugin>
+                <!-- Attached source.jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.2.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-			<!-- Assembly to single jar -->
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-						<descriptorRef>bin</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                <!-- Attached javadoc.jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.9</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-			<!-- OSGi bundle Manifest header -->
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
-				<configuration>
-					<archive>
-						<manifestFile>${manifest-location}/MANIFEST.MF</manifestFile>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.1.0</version>
-				<configuration>
-					<manifestLocation>${manifest-location}</manifestLocation>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<version>1.1.0</version>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.10</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+                <!-- Sign jars with pgp -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <!-- This must commented -->
+                    <configuration>
+                        <skip>${skipSigning}</skip>
+                    </configuration>
+                </plugin>
+
+                <!-- Assembly to single jar -->
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                            <descriptorRef>bin</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                            <phase>package</phase> <!-- bind to the packaging phase -->
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+    </build>
+    <version>1.1.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
