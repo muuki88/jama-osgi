@@ -1,5 +1,6 @@
 package Jama.test;
 
+import static Jama.test.MatrixAsserts.assertDeepArraysEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,22 +11,20 @@ import org.junit.Test;
 
 import Jama.Matrix;
 
+/**
+ * 
+ * @author Nepomuk Seiler
+ * 
+ */
 public class MatrixTest {
 
     private final double[] columnwise = { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. };
     private final double[] rowwise = { 1., 4., 7., 10., 2., 5., 8., 11., 3., 6., 9., 12. };
     private final double[][] rvals = { { 1., 4., 7. }, { 2., 5., 8., 11. }, { 3., 6., 9., 12. } };
     private final double[][] ivals = { { 1., 0., 0., 0. }, { 0., 1., 0., 0. }, { 0., 0., 1., 0. } };
-    private final double[][] tvals = { { 1., 2., 3. }, { 4., 5., 6. }, { 7., 8., 9. }, { 10., 11., 12. } };
     private final double[][] subavals = { { 5., 8., 11. }, { 6., 9., 12. } };
-    private final double[][] pvals = { { 4., 1., 1. }, { 1., 2., 3. }, { 1., 3., 6. } };
-    private final double[][] evals = { { 0., 1., 0., 0. }, { 1., 0., 2.e-7, 0. }, { 0., -2.e-7, 0., 1. }, { 0., 0., 1., 0. } };
-    private final double[][] square = { { 166., 188., 210. }, { 188., 214., 240. }, { 210., 240., 270. } };
-    private final double[][] sqSolution = { { 13. }, { 15. } };
-    private final double[][] condmat = { { 1., 3. }, { 7., 9. } };
 
     private double[][] avals;
-    private double[][] rankdef;
 
     // should trigger bad shape for construction with val
     private final int invalidld = 5;
@@ -47,13 +46,9 @@ public class MatrixTest {
     private final int[] badrowindexset = { 1, 3 };
     private final int[] columnindexset = { 1, 2, 3 };
     private final int[] badcolumnindexset = { 1, 2, 4 };
-    private final double columnsummax = 33.;
-    private final double rowsummax = 30.;
-    private final double sumofdiagonals = 15;
-    private final double sumofsquares = 650;
 
     // index ranges for sub Matrix
-    int ib = 1, ie = 2, jb = 1, je = 3;
+    private int ib = 1, ie = 2, jb = 1, je = 3;
 
     private Matrix A, B, M, R, S;
 
@@ -62,7 +57,6 @@ public class MatrixTest {
     @Before
     public void setUp() {
         avals = new double[][] { { 1., 4., 7., 10. }, { 2., 5., 8., 11. }, { 3., 6., 9., 12. } };
-        rankdef = avals;
         A = new Matrix(columnwise, validld);
         B = new Matrix(avals);
         M = new Matrix(2, 3, 0.0);
@@ -139,26 +133,6 @@ public class MatrixTest {
     @Test
     public void testGetColumnDimension() {
         assertEquals("Column dimension is not correct", cols, A.getColumnDimension());
-    }
-
-    @Test
-    public void testTimesDouble() {
-        assertEquals("Scalarmultiplication with one must be identical matrix", A, A.times(1.0));
-    }
-
-    @Test
-    public void testTimesEquals() {
-        Matrix C = A.timesEquals(1.0);
-        assertEquals("Scalarmultiplication with one must be identical matrix", A, C);
-        assertTrue("Must return the identical Matrix", A == C);
-    }
-
-    @Test
-    public void testReferenceEquality() {
-        double[][] a1 = new double[2][2];
-        double[][] a2 = a1;
-        a1[0][0] = 2.0;
-        assertTrue("Must return the identical Matrix", a1 == a2);
     }
 
     @Test
@@ -396,22 +370,84 @@ public class MatrixTest {
         assertEquals(C, R);
     }
 
-    /* ========================================= */
-    private void assertDeepArraysEquals(double[][] a1, double[][] a2) {
-        assertEquals("Length must be the same", a1.length, a2.length);
-        for (int i = 0; i < a1.length; i++) {
-            assertArrayEquals("Array in row " + i + " are not equals", a1[i], a2[i], 0.0);
-        }
+    @Test
+    public void testUnaryMinusRoundtrip() {
+        Matrix TMP = new Matrix(A.getRowDimension(), A.getColumnDimension());
+        Matrix C = R.uminus();
+        assertEquals(TMP, C.plus(R));
     }
 
-    private void check(Matrix X, Matrix Y) {
-        double eps = Math.pow(2.0, -52.0);
-        if (X.norm1() == 0. & Y.norm1() < 10 * eps)
-            return;
-        if (Y.norm1() == 0. & X.norm1() < 10 * eps)
-            return;
-        if (X.minus(Y).norm1() > 1000 * eps * Math.max(X.norm1(), Y.norm1())) {
-            throw new RuntimeException("The norm of (X-Y) is too large: " + Double.toString(X.minus(Y).norm1()));
-        }
+    @Test(expected = IllegalArgumentException.class)
+    public void testArrayLeftDivideConformanceCheck() {
+        R.arrayLeftDivide(S);
     }
+
+    @Test
+    public void testArrayLeftDivide() {
+        Matrix TMP = new Matrix(A.getRowDimension(), A.getColumnDimension(), 1.0);
+        Matrix C = R.arrayLeftDivide(R);
+        assertEquals(TMP, C);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testArrayLeftDivideEqualsConformanceCheck() {
+        R.arrayLeftDivideEquals(S);
+    }
+
+    @Test
+    public void testArrayLeftDivideEquals() {
+        Matrix COMPARE = new Matrix(A.getRowDimension(), A.getColumnDimension(), 1.0);
+        Matrix TMP = R.copy();
+        TMP.arrayLeftDivideEquals(R);
+        assertEquals(TMP, COMPARE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testArrayRightDivideConformanceCheck() {
+        R.arrayRightDivide(S);
+    }
+
+    @Test
+    public void testArrayRightDivide() {
+        Matrix TMP = new Matrix(A.getRowDimension(), A.getColumnDimension(), 1.0);
+        Matrix C = R.arrayRightDivide(R);
+        assertEquals(TMP, C);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testArrayRightDivideEqualsConformanceCheck() {
+        R.arrayRightDivideEquals(S);
+    }
+
+    @Test
+    public void testArrayRightDivideEquals() {
+        Matrix COMPARE = new Matrix(A.getRowDimension(), A.getColumnDimension(), 1.0);
+        Matrix TMP = R.copy();
+        TMP.arrayRightDivideEquals(R);
+        assertEquals(TMP, COMPARE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTimesConformanceCheck() {
+        S = A.arrayTimes(S);
+    }
+
+    @Test
+    public void testTimes() {
+        Matrix C = A.arrayTimes(B);
+        assertEquals(A, C.arrayRightDivideEquals(B));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTimesEqualsConformanceCheck() {
+        A.arrayTimesEquals(S);
+    }
+
+    @Test
+    public void testTimesEquals() {
+        Matrix TMP = A.copy();
+        A.arrayTimesEquals(B);
+        assertEquals(TMP, A.arrayRightDivideEquals(B));
+    }
+
 }
