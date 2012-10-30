@@ -18,21 +18,63 @@
 		<module>gov.nist.math.jama.feature</module>
 		<module>gov.nist.math.jama.site</module>
 	</modules>
+	
+	<licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<distributionManagement>
-		<!-- use the following if you're not using a snapshot version. -->
-		<repository>
-			<id>nexus</id>
-			<name>RepositoryProxy</name>
-			<url>http://metropolis:8081/nexus/content/repositories/thirdparty</url>
-		</repository>
-		<!-- use the following if you ARE using a snapshot version. -->
-		<snapshotRepository>
-			<id>nexus</id>
-			<name>RepositoryProxy</name>
-			<url>http://metropolis:8081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <scm>
+        <url>https://github.com/muuki88/jama-osgi</url>
+        <connection>scm:git:git://github.com/muuki88/jama-osgi.git</connection>
+        <developerConnection>scm:git:git://github.com/muuki88/jama-osgi.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>jHicklin</id>
+            <name>Joe Hicklin</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>cmoler</id>
+            <name>Cleve Moler</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>pwebb</id>
+            <name>Peter Webb</name>
+            <email></email>
+        </developer>
+        <developer>
+            <id>rboisvert</id>
+            <name>Ronald F. Boisvert </name>
+            <email>boisvert@nist.gov</email>
+        </developer>
+        <developer>
+            <id>bmiller</id>
+            <name>Bruce Miller </name>
+            <email>bruce.miller@nist.gov</email>
+        </developer>
+        <developer>
+            <id>rpozo</id>
+            <name>Roldan Pozob</name>
+            <email>pozo@nist.gov</email>
+        </developer>
+        <developer>
+            <id>kremington</id>
+            <name>Dr. Karin A. Remington</name>
+            <email>kremington@nist.gov</email>
+        </developer>
+        <developer>
+            <id>nseiler</id>
+            <name>Nepomuk Seiler</name>
+            <email>nepomuk.seiler@gmail.com</email>
+        </developer>
+    </developers>
 
 	<build>
 		<plugins>
