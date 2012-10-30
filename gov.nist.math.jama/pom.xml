@@ -19,14 +19,15 @@
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <scm>
         <url>https://github.com/muuki88/jama-osgi</url>
-        <connection>git://github.com/muuki88/jama-osgi.git</connection>
+        <connection>scm:git:git://github.com/muuki88/jama-osgi.git</connection>
+        <developerConnection>scm:git:git://github.com/muuki88/jama-osgi.git</developerConnection>
     </scm>
 
     <developers>
