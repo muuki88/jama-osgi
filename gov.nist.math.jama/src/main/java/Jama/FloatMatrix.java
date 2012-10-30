@@ -1,9 +1,7 @@
 package Jama;
 
-import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.io.StreamTokenizer;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -526,23 +524,6 @@ public class FloatMatrix implements Cloneable, Serializable {
     }
 
     /**
-     * Frobenius norm
-     * 
-     * @return sqrt of sum of squares of all elements.
-     */
-
-    public float normF() {
-        // FIXME
-        float f = 0f;
-        /*
-         * for (int i = 0; i < m; i++) { for (int j = 0; j < n; j++) { f =
-         * Maths.hypot(f, A[i][j]); } }
-         */
-        // return f;
-        throw new UnsupportedOperationException("Not implemented with float yet");
-    }
-
-    /**
      * Unary minus
      * 
      * @return -A
@@ -820,6 +801,22 @@ public class FloatMatrix implements Cloneable, Serializable {
     }
 
     /**
+     * Note: This method creates a Matrix object which needs almost doubled
+     * memory size.
+     * 
+     * @return
+     */
+    public Matrix toMatrix() {
+        Matrix matrix = new Matrix(m, n);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix.set(i, j, A[i][j]);
+            }
+        }
+        return matrix;
+    }
+
+    /**
      * Generate matrix with random elements
      * 
      * @param m Number of rows.
@@ -935,65 +932,6 @@ public class FloatMatrix implements Cloneable, Serializable {
             output.println();
         }
         output.println(); // end with blank line.
-    }
-
-    /**
-     * Read a matrix from a stream. The format is the same the print method, so
-     * printed matrices can be read back in (provided they were printed using US
-     * Locale). Elements are separated by whitespace, all the elements for each
-     * row appear on a single line, the last row is followed by a blank line.
-     * 
-     * @param input the input stream.
-     */
-
-    public static FloatMatrix read(BufferedReader input) throws java.io.IOException {
-        StreamTokenizer tokenizer = new StreamTokenizer(input);
-
-        // Although StreamTokenizer will parse numbers, it doesn't recognize
-        // scientific notation (E or D); however, Double.valueOf does.
-        // The strategy here is to disable StreamTokenizer's number parsing.
-        // We'll only get whitespace delimited words, EOL's and EOF's.
-        // These words should all be numbers, for Double.valueOf to parse.
-
-        tokenizer.resetSyntax();
-        tokenizer.wordChars(0, 255);
-        tokenizer.whitespaceChars(0, ' ');
-        tokenizer.eolIsSignificant(true);
-        java.util.Vector v = new java.util.Vector();
-
-        // Ignore initial empty lines
-        while (tokenizer.nextToken() == StreamTokenizer.TT_EOL)
-            ;
-        if (tokenizer.ttype == StreamTokenizer.TT_EOF)
-            throw new java.io.IOException("Unexpected EOF on matrix read.");
-        do {
-            v.addElement(Double.valueOf(tokenizer.sval)); // Read & store 1st
-                                                          // row.
-        } while (tokenizer.nextToken() == StreamTokenizer.TT_WORD);
-
-        int n = v.size(); // Now we've got the number of columns!
-        float row[] = new float[n];
-        for (int j = 0; j < n; j++)
-            // extract the elements of the 1st row.
-            row[j] = ((Double) v.elementAt(j)).floatValue();
-        v.removeAllElements();
-        v.addElement(row); // Start storing rows instead of columns.
-        while (tokenizer.nextToken() == StreamTokenizer.TT_WORD) {
-            // While non-empty lines
-            v.addElement(row = new float[n]);
-            int j = 0;
-            do {
-                if (j >= n)
-                    throw new java.io.IOException("Row " + v.size() + " is too long.");
-                row[j++] = Double.valueOf(tokenizer.sval).floatValue();
-            } while (tokenizer.nextToken() == StreamTokenizer.TT_WORD);
-            if (j < n)
-                throw new java.io.IOException("Row " + v.size() + " is too short.");
-        }
-        int m = v.size(); // Now we've got the number of rows.
-        float[][] A = new float[m][];
-        v.copyInto(A); // copy the rows out of the vector
-        return new FloatMatrix(A);
     }
 
     /* ================================================ */
