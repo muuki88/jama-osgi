@@ -11,11 +11,6 @@
     <packaging>bundle</packaging>
     <url>http://math.nist.gov/javanumerics/jama/</url>
 
-    <properties>
-        <skipSigning>true</skipSigning>
-    </properties>
-
-
     <build>
         <plugins>
             <plugin>
@@ -53,25 +48,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- Sign jars with pgp -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skip>${skipSigning}</skip>
-                </configuration>
             </plugin>
 
             <!-- Assembly to single jar -->
