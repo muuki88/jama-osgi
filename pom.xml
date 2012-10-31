@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<groupId>gov.nist.math.jama</groupId>
 	<artifactId>jama-osgi</artifactId>
 	<version>1.1.0-SNAPSHOT</version>
@@ -19,20 +24,62 @@
 		<module>gov.nist.math.jama.site</module>
 	</modules>
 
-	<distributionManagement>
-		<!-- use the following if you're not using a snapshot version. -->
-		<repository>
-			<id>nexus</id>
-			<name>RepositoryProxy</name>
-			<url>http://metropolis:8081/nexus/content/repositories/thirdparty</url>
-		</repository>
-		<!-- use the following if you ARE using a snapshot version. -->
-		<snapshotRepository>
-			<id>nexus</id>
-			<name>RepositoryProxy</name>
-			<url>http://metropolis:8081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/muuki88/jama-osgi</url>
+		<connection>scm:git:git://github.com/muuki88/jama-osgi.git</connection>
+		<developerConnection>scm:git:git@github.com:muuki88/jama-osgi.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>jHicklin</id>
+			<name>Joe Hicklin</name>
+			<email />
+		</developer>
+		<developer>
+			<id>cmoler</id>
+			<name>Cleve Moler</name>
+			<email />
+		</developer>
+		<developer>
+			<id>pwebb</id>
+			<name>Peter Webb</name>
+			<email />
+		</developer>
+		<developer>
+			<id>rboisvert</id>
+			<name>Ronald F. Boisvert </name>
+			<email>boisvert@nist.gov</email>
+		</developer>
+		<developer>
+			<id>bmiller</id>
+			<name>Bruce Miller </name>
+			<email>bruce.miller@nist.gov</email>
+		</developer>
+		<developer>
+			<id>rpozo</id>
+			<name>Roldan Pozob</name>
+			<email>pozo@nist.gov</email>
+		</developer>
+		<developer>
+			<id>kremington</id>
+			<name>Dr. Karin A. Remington</name>
+			<email>kremington@nist.gov</email>
+		</developer>
+		<developer>
+			<id>nseiler</id>
+			<name>Nepomuk Seiler</name>
+			<email>nepomuk.seiler@gmail.com</email>
+		</developer>
+	</developers>
 
 	<build>
 		<plugins>

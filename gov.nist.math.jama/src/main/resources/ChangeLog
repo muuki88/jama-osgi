@@ -1,3 +1,6 @@
+2012-10-30 Nepomuk Seiler
+	* Converted JamaTests to JUnit tests
+	* Created FloatMatrix for less memory footprint
 2005-07-13 Bruce Miller
 	* Version 1.0.2 Released.
 	
