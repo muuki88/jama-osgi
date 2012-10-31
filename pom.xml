@@ -20,8 +20,6 @@
 	</properties>
 	<modules>
 		<module>gov.nist.math.jama</module>
-		<module>gov.nist.math.jama.feature</module>
-		<module>gov.nist.math.jama.site</module>
 	</modules>
 
 	<licenses>
@@ -81,20 +79,4 @@
 		</developer>
 	</developers>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<extensions>true</extensions>
-			</plugin>
-		</plugins>
-	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-snapshots</id>
-			<url>https://oss.sonatype.org/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
 </project>
