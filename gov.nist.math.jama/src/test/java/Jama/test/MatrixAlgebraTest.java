@@ -4,8 +4,6 @@ import static Jama.test.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,7 +101,7 @@ public class MatrixAlgebraTest {
         assertTrue("Must return the identical Matrix", A == C);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testQRDecomposition() {
         Matrix TMP = new Matrix(columnwise, 4);
         QRDecomposition QR = TMP.qr();
@@ -111,13 +109,13 @@ public class MatrixAlgebraTest {
         assertMatrixEquals(QR.getQ().times(C), TMP, 0.001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testSingularValueDecomposition() {
         SingularValueDecomposition SVD = B.svd();
         assertMatrixEquals(SVD.getU().times(SVD.getS().times(SVD.getV().transpose())), B, 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testSingularValues() {
         Matrix TMP = new Matrix(condmat);
         SingularValueDecomposition SVD = TMP.svd();
@@ -125,13 +123,13 @@ public class MatrixAlgebraTest {
         assertEquals(singularvalues[0] / singularvalues[Math.min(TMP.getRowDimension(), TMP.getColumnDimension()) - 1], TMP.cond(), 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testRank() {
         Matrix DEF = new Matrix(rankdef);
         assertEquals(Math.min(DEF.getRowDimension(), DEF.getColumnDimension()) - 1, DEF.rank(), 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testLUDecomposition() {
         int n = B.getColumnDimension();
         Matrix LUMATRIX = B.getMatrix(0, n - 1, 0, n - 1);
@@ -140,7 +138,7 @@ public class MatrixAlgebraTest {
         assertMatrixEquals(LU.getL().times(LU.getU()), LUMATRIX.getMatrix(LU.getPivot(), 0, n - 1), 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testInverse() {
         int n = B.getColumnDimension();
         Matrix INV = B.getMatrix(0, n - 1, 0, n - 1);
@@ -149,7 +147,7 @@ public class MatrixAlgebraTest {
         assertMatrixEquals(Matrix.identity(3, 3), INV.times(X), 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testSolve() {
         Matrix SUB = new Matrix(subavals);
         Matrix O = new Matrix(SUB.getRowDimension(), 1, 1.0);
@@ -158,7 +156,7 @@ public class MatrixAlgebraTest {
         assertMatrixEquals(O, SQ.solve(SOL), 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testCholeskyDecomposition() {
         Matrix P = new Matrix(pvals);
         CholeskyDecomposition Chol = P.chol();
@@ -166,7 +164,7 @@ public class MatrixAlgebraTest {
         assertEquals(L.times(L.transpose()), P);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testCholeskyDecompositionSolve() {
         Matrix P = new Matrix(pvals);
         CholeskyDecomposition Chol = P.chol();
@@ -174,7 +172,7 @@ public class MatrixAlgebraTest {
         assertMatrixEquals(Matrix.identity(3, 3), P.times(X), 0.0001);
     }
 
-    @Test
+    @Test(timeout = 500L)
     public void testEigenvalueDecomposition() {
         Matrix B = new Matrix(pvals);
         EigenvalueDecomposition Eig = B.eig();
@@ -190,13 +188,11 @@ public class MatrixAlgebraTest {
         assertMatrixEquals(B.times(V), V.times(D), 0.0001);
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class, timeout = 500L)
     public void testEigenvalueDecompositionWithComplexValues() {
         double[][] vals = new double[][] { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1 }, { 0, 0, 0, 1, 0 }, { 1, 1, 0, 0, 1 }, { 1, 0, 1, 0, 1 } };
         Matrix M = new Matrix(vals);
-        EigenvalueDecomposition decomposition = M.eig();
-        System.out.println(Arrays.toString(decomposition.getImagEigenvalues()));
-        System.out.println(Arrays.toString(decomposition.getRealEigenvalues()));
+        M.eig();
     }
 
 }

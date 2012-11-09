@@ -429,10 +429,10 @@ public class EigenvalueDecomposition implements java.io.Serializable {
 
         // Initialize
 
-        int nn = this.n;
-        int n = nn - 1;
+        int dimension = this.n;
+        int n = dimension - 1;
         int low = 0;
-        int high = nn - 1;
+        int high = dimension - 1;
         double eps = Math.pow(2.0, -52.0);
         double exshift = 0.0;
         double p = 0, q = 0, r = 0, s = 0, z = 0, t, w, x, y;
@@ -440,12 +440,12 @@ public class EigenvalueDecomposition implements java.io.Serializable {
         // Store roots isolated by balanc and compute matrix norm
 
         double norm = 0.0;
-        for (int i = 0; i < nn; i++) {
+        for (int i = 0; i < dimension; i++) {
             if (i < low | i > high) {
                 d[i] = H[i][i];
                 e[i] = 0.0;
             }
-            for (int j = Math.max(i - 1, 0); j < nn; j++) {
+            for (int j = Math.max(i - 1, 0); j < dimension; j++) {
                 norm = norm + Math.abs(H[i][j]);
             }
         }
@@ -453,6 +453,8 @@ public class EigenvalueDecomposition implements java.io.Serializable {
         // Outer loop over eigenvalue index
 
         int iter = 0;
+        double lastConvergenceValue1 = 0;
+        double lastConvergenceValue2 = 0;
 
         while (n >= low) {
             // Look for single small sub-diagonal element
@@ -514,7 +516,7 @@ public class EigenvalueDecomposition implements java.io.Serializable {
 
                     // Row modification
 
-                    for (int j = n - 1; j < nn; j++) {
+                    for (int j = n - 1; j < dimension; j++) {
                         z = H[n - 1][j];
                         H[n - 1][j] = q * z + p * H[n][j];
                         H[n][j] = q * H[n][j] - p * z;
@@ -597,7 +599,8 @@ public class EigenvalueDecomposition implements java.io.Serializable {
                 // Look for two consecutive small sub-diagonal elements
 
                 int m = n - 2;
-
+                double value1 = 0;
+                double value2 = 0;
                 while (m >= l) {
                     z = H[m][m];
                     r = x - z;
@@ -613,14 +616,13 @@ public class EigenvalueDecomposition implements java.io.Serializable {
                         break;
                     }
 
-                    double value1 = Math.abs(H[m][m - 1]) * (Math.abs(q) + Math.abs(r));
-                    double value2 = eps * (Math.abs(p) * (Math.abs(H[m - 1][m - 1]) + Math.abs(z) + Math.abs(H[m + 1][m + 1])));
+                    value1 = Math.abs(H[m][m - 1]) * (Math.abs(q) + Math.abs(r));
+                    value2 = eps * (Math.abs(p) * (Math.abs(H[m - 1][m - 1]) + Math.abs(z) + Math.abs(H[m + 1][m + 1])));
                     if (value1 < value2) {
                         break;
                     }
                     m--;
                 }
-
                 for (int i = m + 2; i <= n; i++) {
                     H[i][i - 2] = 0.0;
                     if (i > m + 2) {
@@ -629,7 +631,6 @@ public class EigenvalueDecomposition implements java.io.Serializable {
                 }
 
                 // Double QR step involving rows l:n and columns m:n
-
                 for (int k = m; k <= n - 1; k++) {
                     boolean notlast = (k != n - 1);
                     if (k != m) {
@@ -665,7 +666,7 @@ public class EigenvalueDecomposition implements java.io.Serializable {
 
                         // Row modification
 
-                        for (int j = k; j < nn; j++) {
+                        for (int j = k; j < dimension; j++) {
                             p = H[k][j] + q * H[k + 1][j];
                             if (notlast) {
                                 p = p + r * H[k + 2][j];
@@ -700,16 +701,22 @@ public class EigenvalueDecomposition implements java.io.Serializable {
                         }
                     } // (s != 0)
                 } // k loop
+
+                // Infinite loop detection
+                if (iter != 0 && iter % 1000 == 0 && value1 == lastConvergenceValue1 && value2 == lastConvergenceValue2) {
+                    throw new IllegalStateException("Infinite Loop detected after " + iter);
+                }
+                lastConvergenceValue1 = value1;
+                lastConvergenceValue2 = value2;
             } // check convergence
         } // while (n >= low)
 
         // Backsubstitute to find vectors of upper triangular form
-
         if (norm == 0.0) {
             return;
         }
 
-        for (n = nn - 1; n >= 0; n--) {
+        for (n = dimension - 1; n >= 0; n--) {
             p = d[n];
             q = e[n];
 
@@ -839,9 +846,9 @@ public class EigenvalueDecomposition implements java.io.Serializable {
 
         // Vectors of isolated roots
 
-        for (int i = 0; i < nn; i++) {
+        for (int i = 0; i < dimension; i++) {
             if (i < low | i > high) {
-                for (int j = i; j < nn; j++) {
+                for (int j = i; j < dimension; j++) {
                     V[i][j] = H[i][j];
                 }
             }
@@ -849,7 +856,7 @@ public class EigenvalueDecomposition implements java.io.Serializable {
 
         // Back transformation to get eigenvectors of original matrix
 
-        for (int j = nn - 1; j >= low; j--) {
+        for (int j = dimension - 1; j >= low; j--) {
             for (int i = low; i <= high; i++) {
                 z = 0.0;
                 for (int k = low; k <= Math.min(j, high); k++) {
