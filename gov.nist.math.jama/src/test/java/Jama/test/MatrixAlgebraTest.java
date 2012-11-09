@@ -4,6 +4,8 @@ import static Jama.test.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -186,6 +188,15 @@ public class MatrixAlgebraTest {
         D = Eig.getD();
         V = Eig.getV();
         assertMatrixEquals(B.times(V), V.times(D), 0.0001);
+    }
+
+    @Test
+    public void testEigenvalueDecompositionWithComplexValues() {
+        double[][] vals = new double[][] { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1 }, { 0, 0, 0, 1, 0 }, { 1, 1, 0, 0, 1 }, { 1, 0, 1, 0, 1 } };
+        Matrix M = new Matrix(vals);
+        EigenvalueDecomposition decomposition = M.eig();
+        System.out.println(Arrays.toString(decomposition.getImagEigenvalues()));
+        System.out.println(Arrays.toString(decomposition.getRealEigenvalues()));
     }
 
 }

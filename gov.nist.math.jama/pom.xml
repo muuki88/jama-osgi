@@ -7,7 +7,6 @@
         <version>1.1.1-SNAPSHOT</version>
     </parent>
     <artifactId>gov.nist.math.jama</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <url>http://math.nist.gov/javanumerics/jama/</url>
 
@@ -91,6 +90,12 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>com.google.guava</groupId>
+        	<artifactId>guava</artifactId>
+        	<version>13.0.1</version>
+        	<scope>test</scope>
         </dependency>
     </dependencies>
 </project>
