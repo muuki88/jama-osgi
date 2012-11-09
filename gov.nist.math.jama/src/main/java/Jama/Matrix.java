@@ -89,10 +89,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Construct an m-by-n matrix of zeros.
      * 
-     * @param m
-     *            Number of rows.
-     * @param n
-     *            Number of colums.
+     * @param m Number of rows.
+     * @param n Number of colums.
      */
 
     public Matrix(int m, int n) {
@@ -104,12 +102,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Construct an m-by-n constant matrix.
      * 
-     * @param m
-     *            Number of rows.
-     * @param n
-     *            Number of colums.
-     * @param s
-     *            Fill the matrix with this scalar value.
+     * @param m Number of rows.
+     * @param n Number of colums.
+     * @param s Fill the matrix with this scalar value.
      */
 
     public Matrix(int m, int n, double s) {
@@ -126,10 +121,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Construct a matrix from a 2-D array.
      * 
-     * @param A
-     *            Two-dimensional array of doubles.
-     * @exception IllegalArgumentException
-     *                All rows must have the same length
+     * @param A Two-dimensional array of doubles.
+     * @exception IllegalArgumentException All rows must have the same length
      * @see #constructWithCopy
      */
 
@@ -147,12 +140,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Construct a matrix quickly without checking arguments.
      * 
-     * @param A
-     *            Two-dimensional array of doubles.
-     * @param m
-     *            Number of rows.
-     * @param n
-     *            Number of colums.
+     * @param A Two-dimensional array of doubles.
+     * @param m Number of rows.
+     * @param n Number of colums.
      */
 
     public Matrix(double[][] A, int m, int n) {
@@ -164,13 +154,10 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Construct a matrix from a one-dimensional packed array
      * 
-     * @param vals
-     *            One-dimensional array of doubles, packed by columns (ala
+     * @param vals One-dimensional array of doubles, packed by columns (ala
      *            Fortran).
-     * @param m
-     *            Number of rows.
-     * @exception IllegalArgumentException
-     *                Array length must be a multiple of m.
+     * @param m Number of rows.
+     * @exception IllegalArgumentException Array length must be a multiple of m.
      */
 
     public Matrix(double vals[], int m) {
@@ -194,10 +181,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Construct a matrix from a copy of a 2-D array.
      * 
-     * @param A
-     *            Two-dimensional array of doubles.
-     * @exception IllegalArgumentException
-     *                All rows must have the same length
+     * @param A Two-dimensional array of doubles.
+     * @exception IllegalArgumentException All rows must have the same length
      */
 
     public static Matrix constructWithCopy(double[][] A) {
@@ -320,10 +305,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Get a single element.
      * 
-     * @param i
-     *            Row index.
-     * @param j
-     *            Column index.
+     * @param i Row index.
+     * @param j Column index.
      * @return A(i,j)
      * @exception ArrayIndexOutOfBoundsException
      */
@@ -335,17 +318,12 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Get a submatrix.
      * 
-     * @param i0
-     *            Initial row index
-     * @param i1
-     *            Final row index
-     * @param j0
-     *            Initial column index
-     * @param j1
-     *            Final column index
+     * @param i0 Initial row index
+     * @param i1 Final row index
+     * @param j0 Initial column index
+     * @param j1 Final column index
      * @return A(i0:i1,j0:j1)
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public Matrix getMatrix(int i0, int i1, int j0, int j1) {
@@ -366,13 +344,10 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Get a submatrix.
      * 
-     * @param r
-     *            Array of row indices.
-     * @param c
-     *            Array of column indices.
+     * @param r Array of row indices.
+     * @param c Array of column indices.
      * @return A(r(:),c(:))
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public Matrix getMatrix(int[] r, int[] c) {
@@ -393,15 +368,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Get a submatrix.
      * 
-     * @param i0
-     *            Initial row index
-     * @param i1
-     *            Final row index
-     * @param c
-     *            Array of column indices.
+     * @param i0 Initial row index
+     * @param i1 Final row index
+     * @param c Array of column indices.
      * @return A(i0:i1,c(:))
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public Matrix getMatrix(int i0, int i1, int[] c) {
@@ -422,15 +393,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Get a submatrix.
      * 
-     * @param r
-     *            Array of row indices.
-     * @param i0
-     *            Initial column index
-     * @param i1
-     *            Final column index
+     * @param r Array of row indices.
+     * @param i0 Initial column index
+     * @param i1 Final column index
      * @return A(r(:),j0:j1)
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public Matrix getMatrix(int[] r, int j0, int j1) {
@@ -449,14 +416,29 @@ public class Matrix implements Cloneable, java.io.Serializable {
     }
 
     /**
+     * Returns the column vector for the specified column. This is a copied
+     * array.
+     * 
+     * @param col
+     * @return
+     */
+    public double[] getColumnVector(int col) {
+        if (col > n) {
+            throw new IllegalArgumentException("Column " + col + " not found. Matrix size is " + m + "x" + n);
+        }
+        double[] columnVector = new double[m];
+        for (int i = 0; i < columnVector.length; i++) {
+            columnVector[i] = A[i][col];
+        }
+        return columnVector;
+    }
+
+    /**
      * Set a single element.
      * 
-     * @param i
-     *            Row index.
-     * @param j
-     *            Column index.
-     * @param s
-     *            A(i,j).
+     * @param i Row index.
+     * @param j Column index.
+     * @param s A(i,j).
      * @exception ArrayIndexOutOfBoundsException
      */
 
@@ -467,18 +449,12 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Set a submatrix.
      * 
-     * @param i0
-     *            Initial row index
-     * @param i1
-     *            Final row index
-     * @param j0
-     *            Initial column index
-     * @param j1
-     *            Final column index
-     * @param X
-     *            A(i0:i1,j0:j1)
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @param i0 Initial row index
+     * @param i1 Final row index
+     * @param j0 Initial column index
+     * @param j1 Final column index
+     * @param X A(i0:i1,j0:j1)
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public void setMatrix(int i0, int i1, int j0, int j1, Matrix X) {
@@ -496,14 +472,10 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Set a submatrix.
      * 
-     * @param r
-     *            Array of row indices.
-     * @param c
-     *            Array of column indices.
-     * @param X
-     *            A(r(:),c(:))
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @param r Array of row indices.
+     * @param c Array of column indices.
+     * @param X A(r(:),c(:))
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public void setMatrix(int[] r, int[] c, Matrix X) {
@@ -521,16 +493,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Set a submatrix.
      * 
-     * @param r
-     *            Array of row indices.
-     * @param j0
-     *            Initial column index
-     * @param j1
-     *            Final column index
-     * @param X
-     *            A(r(:),j0:j1)
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @param r Array of row indices.
+     * @param j0 Initial column index
+     * @param j1 Final column index
+     * @param X A(r(:),j0:j1)
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public void setMatrix(int[] r, int j0, int j1, Matrix X) {
@@ -548,16 +515,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Set a submatrix.
      * 
-     * @param i0
-     *            Initial row index
-     * @param i1
-     *            Final row index
-     * @param c
-     *            Array of column indices.
-     * @param X
-     *            A(i0:i1,c(:))
-     * @exception ArrayIndexOutOfBoundsException
-     *                Submatrix indices
+     * @param i0 Initial row index
+     * @param i1 Final row index
+     * @param c Array of column indices.
+     * @param X A(i0:i1,c(:))
+     * @exception ArrayIndexOutOfBoundsException Submatrix indices
      */
 
     public void setMatrix(int i0, int i1, int[] c, Matrix X) {
@@ -671,8 +633,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * C = A + B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A + B
      */
 
@@ -691,8 +652,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * A = A + B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A + B
      */
 
@@ -709,8 +669,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * C = A - B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A - B
      */
 
@@ -729,8 +688,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * A = A - B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A - B
      */
 
@@ -747,8 +705,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Element-by-element multiplication, C = A.*B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A.*B
      */
 
@@ -767,8 +724,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Element-by-element multiplication in place, A = A.*B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A.*B
      */
 
@@ -785,8 +741,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Element-by-element right division, C = A./B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A./B
      */
 
@@ -805,8 +760,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Element-by-element right division in place, A = A./B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A./B
      */
 
@@ -823,8 +777,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Element-by-element left division, C = A.\B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A.\B
      */
 
@@ -843,8 +796,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Element-by-element left division in place, A = A.\B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return A.\B
      */
 
@@ -861,8 +813,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Multiply a matrix by a scalar, C = s*A
      * 
-     * @param s
-     *            scalar
+     * @param s scalar
      * @return s*A
      */
 
@@ -880,8 +831,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Multiply a matrix by a scalar in place, A = s*A
      * 
-     * @param s
-     *            scalar
+     * @param s scalar
      * @return replace A by s*A
      */
 
@@ -897,11 +847,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Linear algebraic matrix multiplication, A * B
      * 
-     * @param B
-     *            another matrix
+     * @param B another matrix
      * @return Matrix product, A * B
-     * @exception IllegalArgumentException
-     *                Matrix inner dimensions must agree.
+     * @exception IllegalArgumentException Matrix inner dimensions must agree.
      */
 
     public Matrix times(Matrix B) {
@@ -925,6 +873,32 @@ public class Matrix implements Cloneable, java.io.Serializable {
             }
         }
         return X;
+    }
+
+    /**
+     * Calculates v*A = C <br>
+     * A is this.
+     * 
+     * @param vector v
+     * @return new Matrix C
+     */
+    public Matrix timesRowVector(double[] vector) {
+        return new Matrix(vector, 1).times(this);
+    }
+
+    /**
+     * Calculates v*A = C <br>
+     * A is this.
+     * 
+     * @param vector v
+     * @return new Matrix C
+     */
+    public Matrix timesColumnVector(double[] vector) {
+        Matrix M = new Matrix(vector.length, 1);
+        for (int i = 0; i < vector.length; i++) {
+            M.set(i, 0, vector[i]);
+        }
+        return times(M);
     }
 
     /**
@@ -985,8 +959,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Solve A*X = B
      * 
-     * @param B
-     *            right hand side
+     * @param B right hand side
      * @return solution if A is square, least squares solution otherwise
      */
 
@@ -997,8 +970,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Solve X*A = B, which is also A'*X' = B'
      * 
-     * @param B
-     *            right hand side
+     * @param B right hand side
      * @return solution if A is square, least squares solution otherwise.
      */
 
@@ -1063,10 +1035,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Generate matrix with random elements
      * 
-     * @param m
-     *            Number of rows.
-     * @param n
-     *            Number of colums.
+     * @param m Number of rows.
+     * @param n Number of colums.
      * @return An m-by-n matrix with uniformly distributed random elements.
      */
 
@@ -1084,10 +1054,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
     /**
      * Generate identity matrix
      * 
-     * @param m
-     *            Number of rows.
-     * @param n
-     *            Number of colums.
+     * @param m Number of rows.
+     * @param n Number of colums.
      * @return An m-by-n matrix with ones on the diagonal and zeros elsewhere.
      */
 
@@ -1106,10 +1074,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * Print the matrix to stdout. Line the elements up in columns with a
      * Fortran-like 'Fw.d' style format.
      * 
-     * @param w
-     *            Column width.
-     * @param d
-     *            Number of digits after the decimal.
+     * @param w Column width.
+     * @param d Number of digits after the decimal.
      */
 
     public void print(int w, int d) {
@@ -1120,12 +1086,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * Print the matrix to the output stream. Line the elements up in columns
      * with a Fortran-like 'Fw.d' style format.
      * 
-     * @param output
-     *            Output stream.
-     * @param w
-     *            Column width.
-     * @param d
-     *            Number of digits after the decimal.
+     * @param output Output stream.
+     * @param w Column width.
+     * @param d Number of digits after the decimal.
      */
 
     public void print(PrintWriter output, int w, int d) {
@@ -1144,10 +1107,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * that is the matrix is to be read back in, you probably will want to use a
      * NumberFormat that is set to US Locale.
      * 
-     * @param format
-     *            A Formatting object for individual elements.
-     * @param width
-     *            Field width for each column.
+     * @param format A Formatting object for individual elements.
+     * @param width Field width for each column.
      * @see java.text.DecimalFormat#setDecimalFormatSymbols
      */
 
@@ -1167,12 +1128,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * characters. Note that is the matrix is to be read back in, you probably
      * will want to use a NumberFormat that is set to US Locale.
      * 
-     * @param output
-     *            the output stream.
-     * @param format
-     *            A formatting object to format the matrix elements
-     * @param width
-     *            Column width.
+     * @param output the output stream.
+     * @param format A formatting object to format the matrix elements
+     * @param width Column width.
      * @see java.text.DecimalFormat#setDecimalFormatSymbols
      */
 
@@ -1198,8 +1156,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * Locale). Elements are separated by whitespace, all the elements for each
      * row appear on a single line, the last row is followed by a blank line.
      * 
-     * @param input
-     *            the input stream.
+     * @param input the input stream.
      */
 
     public static Matrix read(BufferedReader input) throws java.io.IOException {

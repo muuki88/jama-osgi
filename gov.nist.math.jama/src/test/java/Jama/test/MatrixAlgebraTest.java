@@ -24,6 +24,8 @@ public class MatrixAlgebraTest {
     private final double[][] square = { { 166., 188., 210. }, { 188., 214., 240. }, { 210., 240., 270. } };
     private final double[][] sqSolution = { { 13. }, { 15. } };
     private final double[][] condmat = { { 1., 3. }, { 7., 9. } };
+    private final double[] rowVector = { 3.0, 2.0, 1.0 };
+    private final double[] colVector = { 3.0, 2.0, 1.0, 0.0 };
 
     private double[][] avals;
     private double[][] rankdef;
@@ -99,6 +101,23 @@ public class MatrixAlgebraTest {
         Matrix C = A.timesEquals(1.0);
         assertEquals("Scalarmultiplication with one must be identical matrix", A, C);
         assertTrue("Must return the identical Matrix", A == C);
+    }
+
+    @Test
+    public void testTimesRowVector() {
+        Matrix matrix = A.timesRowVector(rowVector);
+        assertEquals(10.0, matrix.get(0, 0), 0.0);
+        assertEquals(28.0, matrix.get(0, 1), 0.0);
+        assertEquals(46.0, matrix.get(0, 2), 0.0);
+        assertEquals(64.0, matrix.get(0, 3), 0.0);
+    }
+
+    @Test
+    public void testTimesColumnVector() {
+        Matrix matrix = A.timesColumnVector(colVector);
+        assertEquals(18.0, matrix.get(0, 0), 0.0);
+        assertEquals(24.0, matrix.get(1, 0), 0.0);
+        assertEquals(30.0, matrix.get(2, 0), 0.0);
     }
 
     @Test(timeout = 500L)
