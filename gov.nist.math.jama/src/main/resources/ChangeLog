@@ -1,3 +1,11 @@
+2012-11-09 Bruce Miller
+	* Version 1.1.1 Released.
+	* Patched hqr2 method in Jama.EigenvalueDecomposition
+	to avoid infinite loop;
+	Thanks Frederic Devernay <frederic.devernay@m4x.org>
+	* Updated unchecked type coding in Matrix read.
+	* Added serialization ID to Jama.Matrix and Decomposition classes.
+	* Cleaned up javadoc documentation to Jama.Matrix and Decomposition classes
 2012-10-30 Nepomuk Seiler
 	* Converted JamaTests to JUnit tests
 	* Created FloatMatrix for less memory footprint
