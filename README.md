@@ -16,6 +16,19 @@ Checkout the files and run
 mvn compile package` 
 ```
 
+## Maven
+
+Each release is published as OSGi bundle on maven central, too.
+
+```xml
+
+<dependency>
+    <groupId>de.mukis</groupId>
+    <artifactId>de.mukis.jama</artifactId>
+    <version>1.1.3</version>
+</dependency>
+```
+
 ## Usage
 
 ```java
