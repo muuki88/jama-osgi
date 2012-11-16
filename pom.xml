@@ -10,7 +10,7 @@
 
 	<groupId>de.mukis</groupId>
 	<artifactId>jama</artifactId>
-	<version>1.1.2-SNAPSHOT</version>
+	<version>1.1.2</version>
 	<packaging>pom</packaging>
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
