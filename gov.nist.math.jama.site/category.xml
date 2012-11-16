@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/gov.nist.math.jama.feature_1.1.0.qualifier.jar" id="gov.nist.math.jama.feature" version="1.1.0.qualifier">
-      <category name="gov.nist.math"/>
-   </feature>
-   <category-def name="gov.nist.math" label="Jama"/>
-</site>

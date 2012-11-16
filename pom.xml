@@ -8,20 +8,21 @@
 		<version>7</version>
 	</parent>
 
-	<groupId>gov.nist.math.jama</groupId>
-	<artifactId>jama-osgi</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<groupId>de.mukis.jama</groupId>
+	<artifactId>jama</artifactId>
+	<version>1.1.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho.version>0.16.0</tycho.version>
 	</properties>
+
 	<modules>
-		<module>gov.nist.math.jama</module>
-		<module>gov.nist.math.jama.feature</module>
-		<module>gov.nist.math.jama.site</module>
+		<module>de.mukis.jama</module>
+        <module>de.mukis.jama.feature</module>
+        <module>de.mukis.jama.site</module>
 	</modules>
 
 	<licenses>
@@ -91,10 +92,35 @@
 			</plugin>
 		</plugins>
 	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-snapshots</id>
-			<url>https://oss.sonatype.org/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
+
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <!-- Sign jars with pgp -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.4</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

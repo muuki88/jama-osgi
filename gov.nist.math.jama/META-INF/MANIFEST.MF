@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Jama
-Bundle-SymbolicName: gov.nist.math.jama
-Bundle-Version: 1.1.0.qualifier
-Export-Package: Jama;version="1.0.2",
- Jama.util;version="1.0.2"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ClassPath: .

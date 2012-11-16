@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/de.mukis.jama.feature_1.1.2.qualifier.jar" id="de.mukis.jama.feature" version="1.1.2.qualifier">
+      <category name="de.mukis.jama"/>
+   </feature>
+   <category-def name="de.mukis.jama" label="Jama"/>
+</site>

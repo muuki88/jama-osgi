@@ -316,6 +316,18 @@ public class MatrixTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void testColumnVectorWithBadIndex() {
+        B.getColumnVector(invalidld);
+    }
+
+    @Test
+    public void testColumnVector() {
+        double[] columnVector = B.getColumnVector(0);
+        double[] expecteds = new double[] { 1.0, 2.0, 3.0 };
+        assertArrayEquals(expecteds, columnVector, 0.0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testMinusWithNonConformantColumns() {
         S = A.minus(S);
     }
