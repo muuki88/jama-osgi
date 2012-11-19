@@ -24,21 +24,24 @@
 
     <menu name="Jama Project">
       <item name="Project Info" href="project-info.html" />
+      <item name="Project Summary" href="project-summary.html" />
       <item name="Project Reports" href="project-reports.html">
             <item name="FindBugs" href="findbugs.html" />
             <item name="Checkstyle" href="checkstyle.html" />
             <item name="Surefire Test Report" href="surefire-report.html" />
+            <item name="Changelog" href="changelog.html" />
       </item>
-      <item name="Project Summary" href="project-summary.html" />
+      <item name="Dependencies" href="dependencies.html">
+            <item name="Dependencies" href="dependencies.html" />
+            <item name="Dependecy Convergence" href="dependency-convergence.html" />
+            <item name="Plugins" href="plugins.html" />
+            <item name="Plugin Management" href="plugin-management.html" />
+      </item>
+      
       <item name="Developers" href="team-list.html" />
-      <item name="Dependencies" href="dependencies.html" />
-      <item name="Dependecy Convergence" href="dependency-convergence.html" />
-      <item name="Dependency Info" href="dependency-info.html" />
+      <item name="Buildsystem" href="dependency-info.html" />
       <item name="Distribution" href="distribution-management.html" />
-      <item name="CI Integration" href="integration.html" />
       <item name="Issues" href="issue-tracking.html" />
-      <item name="Plugins" href="plugins.html" />
-      <item name="Plugin Management" href="plugin-management.html" />
       <item name="Mailing List" href="mail-lists.html" />
       <item name="License" href="license.html" />
       <item name="FAQ" href="faq.html"/>
