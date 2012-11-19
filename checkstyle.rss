@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>de.mukis.jama - Checkstyle report</title>
+    <link>http://math.nist.gov/javanumerics/jama/</link>
+    <description>de.mukis.jama - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2012</copyright>
+    <item>
+      <title>File: 10,
+             Errors: 3147,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://math.nist.gov/javanumerics/jama//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.util.MatrixReader.java">Jama/util/MatrixReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.QRDecomposition.java">Jama/QRDecomposition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  77
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.SingularValueDecomposition.java">Jama/SingularValueDecomposition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  409
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.LUDecomposition.java">Jama/LUDecomposition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  66
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.util.MatrixWriter.java">Jama/util/MatrixWriter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  41
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.EigenvalueDecomposition.java">Jama/EigenvalueDecomposition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  621
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.CholeskyDecomposition.java">Jama/CholeskyDecomposition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  72
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.util.Maths.java">Jama/util/Maths.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.Matrix.java">Jama/Matrix.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1524
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.FloatMatrix.java">Jama/FloatMatrix.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  291
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
