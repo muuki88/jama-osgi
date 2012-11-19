@@ -17,6 +17,7 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho.version>0.16.0</tycho.version>
+        <findbugs.version>2.5.2</findbugs.version>
 	</properties>
 
 	<modules>
@@ -36,6 +37,21 @@
 		<connection>scm:git:git://github.com/muuki88/jama-osgi.git</connection>
 		<developerConnection>scm:git:git@github.com:muuki88/jama-osgi.git</developerConnection>
 	</scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/muuki88/jama-osgi/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+          <name>Jama User List</name>
+          <subscribe>listproc@nist.gov</subscribe>
+          <unsubscribe>listproc@nist.gov</unsubscribe>
+          <post>jama@nist.gov</post>
+          <archive>http://cio.nist.gov/esd/emaildir/lists/jama/maillist.html</archive>
+        </mailingList>
+      </mailingLists>
 
 	<developers>
 		<developer>
@@ -79,34 +95,76 @@
 			<email>nepomuk.seiler@gmail.com</email>
 		</developer>
 	</developers>
-  <profiles>
-    <profile>
-      <id>release-sign-artifacts</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
+    <build>
+    <!-- To define the plugin version in your parent POM -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                      <groupId>org.codehaus.mojo</groupId>
+                      <artifactId>findbugs-maven-plugin</artifactId>
+                      <version>${findbugs.version}</version>
+                 </plugin>
+             </plugins>
+        </pluginManagement>
+    </build>
+
+    <build>
         <plugins>
-          <!-- Sign jars with pgp -->
-          <plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <templateDirectory>src/site</templateDirectory>
+                    <template>site.vm</template>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Reporting -->
+    <reporting>
+        <plugins>
+        <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.4</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>2.6</version>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>${findbugs.version}</version>
           </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </reporting>
+
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+        <id>release-sign-artifacts</id>
+        <activation>
+            <property>
+                <name>performRelease</name>
+                <value>true</value>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+              <!-- Sign jars with pgp -->
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                  <execution>
+                    <id>sign-artifacts</id>
+                    <phase>verify</phase>
+                    <goals>
+                      <goal>sign</goal>
+                    </goals>
+                  </execution>
+                </executions>
+              </plugin>
+            </plugins>
+        </build>
+        </profile>
+    </profiles>
 </project>
