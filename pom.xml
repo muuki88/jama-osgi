@@ -18,6 +18,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho.version>0.16.0</tycho.version>
         <findbugs.version>2.5.2</findbugs.version>
+        <checkstyle.version>2.9.1</checkstyle.version>
+        <surefire.reportplugin.version>2.12.4</surefire.reportplugin.version>
+        <changelog.version>2.2</changelog.version>
+        <javadoc.version>2.9</javadoc.version>
 	</properties>
 
 	<modules>
@@ -51,7 +55,7 @@
           <post>jama@nist.gov</post>
           <archive>http://cio.nist.gov/esd/emaildir/lists/jama/maillist.html</archive>
         </mailingList>
-      </mailingLists>
+    </mailingLists>
 
 	<developers>
 		<developer>
