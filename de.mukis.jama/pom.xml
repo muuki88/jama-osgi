@@ -10,6 +10,22 @@
     <packaging>bundle</packaging>
     <url>http://math.nist.gov/javanumerics/jama/</url>
 
+    <!-- Reporting -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
     <build>
         <plugins>
             <plugin>
@@ -22,6 +38,11 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Optional directory to put findbugs xdoc xml report -->
+                    <xmlOutputDirectory>target/site/findbugs.report</xmlOutputDirectory>
+                </configuration>
             </plugin>
 
             <!-- Attached source.jar -->
