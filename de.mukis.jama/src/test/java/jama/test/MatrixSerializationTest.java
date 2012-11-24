@@ -1,6 +1,8 @@
-package Jama.test;
+package jama.test;
 
 import static org.junit.Assert.assertEquals;
+
+import jama.Matrix;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -18,7 +20,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Jama.Matrix;
 
 public class MatrixSerializationTest {
 

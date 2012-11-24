@@ -1,15 +1,15 @@
-package Jama.test;
+package jama.test;
 
-import static Jama.test.MatrixAsserts.assertDeepArraysEquals;
+import static jama.test.MatrixAsserts.assertDeepArraysEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import jama.Matrix;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Jama.Matrix;
 
 /**
  * 

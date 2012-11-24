@@ -1,6 +1,6 @@
 package jama.benchmark;
 
-import Jama.Matrix;
+import jama.Matrix;
 
 import com.google.caliper.Param;
 import com.google.caliper.Runner;

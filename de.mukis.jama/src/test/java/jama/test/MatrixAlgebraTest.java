@@ -1,18 +1,18 @@
-package Jama.test;
+package jama.test;
 
-import static Jama.test.MatrixAsserts.assertMatrixEquals;
+import static jama.test.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import jama.CholeskyDecomposition;
+import jama.EigenvalueDecomposition;
+import jama.LUDecomposition;
+import jama.Matrix;
+import jama.QRDecomposition;
+import jama.SingularValueDecomposition;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import Jama.CholeskyDecomposition;
-import Jama.EigenvalueDecomposition;
-import Jama.LUDecomposition;
-import Jama.Matrix;
-import Jama.QRDecomposition;
-import Jama.SingularValueDecomposition;
 
 public class MatrixAlgebraTest {
 

@@ -1,4 +1,6 @@
-package Jama;
+package jama;
+
+import jama.util.Maths;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
@@ -9,7 +11,6 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Locale;
 
-import Jama.util.Maths;
 
 /**
  * Jama = Java Matrix class.

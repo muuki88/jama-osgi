@@ -1,4 +1,4 @@
-package Jama;
+package jama;
 
    /** LU Decomposition.
    <P>

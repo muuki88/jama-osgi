@@ -1,11 +1,12 @@
-package Jama.util;
+package jama.util;
+
+import jama.Matrix;
 
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 
-import Jama.Matrix;
 
 /**
  * Reads a Matrix from a Reader

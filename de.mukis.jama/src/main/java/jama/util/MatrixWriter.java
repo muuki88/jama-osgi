@@ -1,4 +1,7 @@
-package Jama.util;
+package jama.util;
+
+import jama.FloatMatrix;
+import jama.Matrix;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -8,8 +11,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import Jama.FloatMatrix;
-import Jama.Matrix;
 
 /**
  * Writes a Matrix to a specified stream

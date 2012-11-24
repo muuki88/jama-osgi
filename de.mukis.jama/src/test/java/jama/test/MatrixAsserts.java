@@ -1,8 +1,8 @@
-package Jama.test;
+package jama.test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import Jama.Matrix;
+import jama.Matrix;
 
 /**
  * 

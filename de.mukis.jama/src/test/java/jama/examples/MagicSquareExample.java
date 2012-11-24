@@ -1,5 +1,6 @@
-package Jama.examples;
-import Jama.*; 
+package jama.examples;
+import jama.*;
+
 import java.util.Date;
 
 /** Example of use of Matrix Class, featuring magic squares. **/

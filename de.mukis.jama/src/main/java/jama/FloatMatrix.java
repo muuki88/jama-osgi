@@ -1,4 +1,4 @@
-package Jama;
+package jama;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
