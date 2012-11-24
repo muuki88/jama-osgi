@@ -2,6 +2,7 @@ package jama.test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import jama.FloatMatrix;
 import jama.Matrix;
 
 /**
@@ -16,6 +17,17 @@ public class MatrixAsserts {
         assertEquals("Columndimension must be equals", A.getColumnDimension(), B.getColumnDimension());
         double[][] a = A.getArray();
         double[][] b = B.getArray();
+
+        for (int i = 0; i < a.length; i++) {
+            assertArrayEquals("Row " + i + " is not equals", a[i], b[i], delta);
+        }
+    }
+
+    public static void assertMatrixEquals(FloatMatrix A, FloatMatrix B, float delta) {
+        assertEquals("Rowdimension must be equals", A.getRowDimension(), B.getRowDimension());
+        assertEquals("Columndimension must be equals", A.getColumnDimension(), B.getColumnDimension());
+        float[][] a = A.getArray();
+        float[][] b = B.getArray();
 
         for (int i = 0; i < a.length; i++) {
             assertArrayEquals("Row " + i + " is not equals", a[i], b[i], delta);

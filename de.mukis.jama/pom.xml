@@ -1,149 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>de.mukis</groupId>
-        <artifactId>jama</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>de.mukis.jama</artifactId>
-    <packaging>bundle</packaging>
-    <url>http://math.nist.gov/javanumerics/jama/</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.mukis</groupId>
+		<artifactId>jama</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>de.mukis.jama</artifactId>
+	<packaging>bundle</packaging>
+	<url>http://math.nist.gov/javanumerics/jama/</url>
 
-    <!-- Reporting -->
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.6</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${surefire.reportplugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changelog-plugin</artifactId>
-                <version>${changelog.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${javadoc.version}</version>
-                <configuration>
-                </configuration>
-            </plugin>
-         </plugins>
-    </reporting>
+	<!-- Reporting -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${findbugs.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${surefire.reportplugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+				<version>${changelog.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${javadoc.version}</version>
+				<configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-            </plugin>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
 
-            <!-- Findbugs Mojo -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put findbugs xdoc xml report -->
-                    <xmlOutputDirectory>target/site/findbugs.report</xmlOutputDirectory>
-                </configuration>
-            </plugin>
+			<!-- Findbugs Mojo -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+					<!-- Optional directory to put findbugs xdoc xml report -->
+					<xmlOutputDirectory>target/site/findbugs.report</xmlOutputDirectory>
+				</configuration>
+			</plugin>
 
-            <!-- Attached source.jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- JavaCL Generator -->
+			<plugin>
+				<groupId>com.nativelibs4java</groupId>
+				<artifactId>maven-javacl-plugin</artifactId>
+				<version>1.0.0-RC2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Attached source.jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-            <!-- Attached javadoc.jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- Attached javadoc.jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-            <!-- Assembly to single jar -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                        <descriptorRef>bin</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- bind to the packaging phase -->
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- Assembly to single jar -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+						<descriptorRef>bin</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- bind to the packaging phase -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-            <!-- OSGi bundle -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Export-Package>Jama.*</Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-        	<groupId>com.google.caliper</groupId>
-        	<artifactId>caliper</artifactId>
-        	<version>0.5-rc1</version>
-        	<scope>test</scope>
-        </dependency>
-    </dependencies>
+			<!-- OSGi bundle -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>Jama.*</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.caliper</groupId>
+			<artifactId>caliper</artifactId>
+			<version>0.5-rc1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.nativelibs4java</groupId>
+			<artifactId>javacl</artifactId>
+			<version>1.0.0-RC2</version>
+		</dependency>
+	</dependencies>
 </project>
