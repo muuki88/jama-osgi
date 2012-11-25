@@ -1,6 +1,6 @@
-package jama.test;
+package jama;
 
-import static jama.test.MatrixAsserts.assertDeepArraysEquals;
+import static jama.MatrixAsserts.assertDeepArraysEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

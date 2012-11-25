@@ -1,6 +1,6 @@
-package jama.test;
+package jama;
 
-import static jama.test.MatrixAsserts.assertMatrixEquals;
+import static jama.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import jama.CholeskyDecomposition;

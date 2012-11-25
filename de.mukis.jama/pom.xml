@@ -166,5 +166,11 @@
 			<artifactId>javacl</artifactId>
 			<version>1.0.0-RC2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

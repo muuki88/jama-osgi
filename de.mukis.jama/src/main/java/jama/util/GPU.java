@@ -8,6 +8,7 @@ import jama.Matrix;
 import jama.MultiplicationKernel;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.bridj.Pointer;
 
@@ -20,12 +21,21 @@ import com.nativelibs4java.opencl.JavaCL;
 
 /**
  * 
- * @author muki
+ * @author Nepomuk Seiler
+ * @version 2.0.0-SNAPSHOT
  * 
  */
 public class GPU {
 
     public static FloatMatrix multiply(FloatMatrix A, FloatMatrix B) throws IOException {
+        return multiply(A, B, true);
+    }
+
+    public static FloatMatrix multiplyLocal(FloatMatrix A, FloatMatrix B) throws IOException {
+        return multiply(A, B, false);
+    }
+
+    private static FloatMatrix multiply(FloatMatrix A, FloatMatrix B, boolean local) throws IOException {
         if (A.getColumnDimension() != B.getRowDimension()) {
             throw new IllegalArgumentException("Matrix inner dimensions must agree.");
         }
@@ -52,14 +62,27 @@ public class GPU {
         // Get and call the kernel :
         MultiplicationKernel kernel = new MultiplicationKernel(context);
         int[] localWorkSizes = new int[] { 8, 8 };
-        int[] globalWorkSizes = new int[] { 8, 8 };
-        CLEvent clEvent = kernel.floatMatrixMult(queue, //
-                resultBuffer, //
-                aInputBuffer, //
-                bInputBuffer, //
-                qInputBuffer, //
-                globalWorkSizes, //
-                localWorkSizes);
+        int[] globalWorkSizes = new int[] { A.getRowDimension(), B.getColumnDimension() };
+        System.out.println("  GlobalWorkSizes " + Arrays.toString(globalWorkSizes));
+
+        CLEvent clEvent = null;
+        if (local) {
+            clEvent = kernel.floatMatrixMultLocals(queue, //
+                    resultBuffer, //
+                    aInputBuffer, //
+                    bInputBuffer, //
+                    qInputBuffer, //
+                    globalWorkSizes, //
+                    localWorkSizes);
+        } else {
+            clEvent = kernel.floatMatrixMult(queue, //
+                    resultBuffer, //
+                    aInputBuffer, //
+                    bInputBuffer, //
+                    qInputBuffer, //
+                    globalWorkSizes, //
+                    localWorkSizes);
+        }
 
         // blocks until
         Pointer<Float> outPtr = resultBuffer.read(queue, clEvent);
@@ -96,8 +119,8 @@ public class GPU {
 
     protected static Matrix pointerToMatrix(Pointer<Double> pointer, int rows, int cols) {
         Matrix matrix = new Matrix(rows, cols);
-        for (int row = 0; row < cols; row++) {
-            for (int col = 0; col < rows; col++) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
                 matrix.set(row, col, pointer.get(row + matrix.getRowDimension() * col));
             }
         }
@@ -106,12 +129,22 @@ public class GPU {
 
     protected static FloatMatrix pointerToFloatMatrix(Pointer<Float> pointer, int rows, int cols) {
         FloatMatrix matrix = new FloatMatrix(rows, cols);
-        for (int row = 0; row < cols; row++) {
-            for (int col = 0; col < rows; col++) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
                 matrix.set(row, col, pointer.get(row + matrix.getRowDimension() * col));
             }
         }
         return matrix;
+    }
+
+    /**
+     * forumlar := 2^(ceil(log_2(size)))
+     * 
+     * @param size
+     * @return
+     */
+    protected static int workgroupSize(int size) {
+        return (int) Math.pow(2, Math.ceil(Math.log(size) / Math.log(2)));
     }
 
 }

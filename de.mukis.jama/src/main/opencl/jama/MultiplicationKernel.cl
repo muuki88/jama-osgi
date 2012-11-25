@@ -1,4 +1,6 @@
+// Sourcecode from 
 // http://www.cmsoft.com.br/index.php?option=com_content&view=category&layout=blog&id=94&Itemid=145
+// Copyright © 2012 CMSoft. All Rights Reserved.
 
 __kernel void
 floatMatrixMult(     __global       float * MResp,
