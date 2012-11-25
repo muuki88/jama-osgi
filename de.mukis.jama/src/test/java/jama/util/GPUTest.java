@@ -21,6 +21,17 @@ import com.nativelibs4java.opencl.CLDevice;
 import com.nativelibs4java.opencl.CLPlatform;
 import com.nativelibs4java.opencl.JavaCL;
 
+/**
+ * <p>
+ * Run this test with {@code javacl.debug=true} as VM argument to enable
+ * KernelDebuggin
+ * </p>
+ * 
+ * @author Nepomuk Seiler
+ * @see <a
+ *      href="http://code.google.com/p/javacl/wiki/DebuggingKernels">DebuggingKernels</a>
+ * 
+ */
 public class GPUTest {
 
     private final float[][] vals = { { 1f, 4f, 7f }, { 2f, 5f, 8f }, { 3f, 6f, 9f } };
@@ -52,10 +63,7 @@ public class GPUTest {
 
         CLDevice[] devices = platforms[0].listGPUDevices(true);
         assertTrue("There must a device available", devices.length != 0);
-        trace("Max ComputeUnits: " + devices[0].getMaxComputeUnits());
-        trace("Max WorkgroupSize: " + devices[0].getMaxWorkGroupSize());
-        trace("Max WorkgroupItemDimension: " + devices[0].getMaxWorkItemDimensions());
-        trace("Max WorkItemSizes[]: " + Arrays.toString(devices[0].getMaxWorkItemSizes()));
+        printDeviceInfo(devices[0]);
     }
 
     @Test
@@ -64,6 +72,18 @@ public class GPUTest {
         for (int e = 3; e <= exponent; e++) {
             int dim = (int) Math.pow(2, e);
             checkMultiplicationFloat(dim, dim, dim);
+        }
+    }
+
+    @Test
+    public void testNonSquarePowerOfTwoMatrixMultiplication() throws IOException {
+        int exponent = 10;
+        for (int e1 = 3; e1 <= exponent; e1++) {
+            for (int e2 = 3; e2 <= exponent; e2++) {
+                int m = (int) Math.pow(2, e1);
+                int n = (int) Math.pow(2, e2);
+                checkMultiplicationFloat(m, m, n);
+            }
         }
     }
 
@@ -122,6 +142,7 @@ public class GPUTest {
         FloatMatrix matrix2 = GPU.pointerToFloatMatrix(pointer, matrix.getRowDimension(), matrix.getColumnDimension());
 
         assertMatrixEquals(matrix, matrix2, 0f);
+        pointer.release();
     }
 
     @Test
@@ -134,6 +155,7 @@ public class GPUTest {
                 assertEquals("Must be equals", matrix.get(row, col), pointer.get(row + matrix.getRowDimension() * col).floatValue(), 0f);
             }
         }
+        pointer.release();
     }
 
     @Test
@@ -176,5 +198,28 @@ public class GPUTest {
 
     private void trace(String msg) {
         System.out.println("[" + name.getMethodName() + "] " + msg);
+    }
+
+    private void printDeviceInfo(CLDevice device) {
+        trace("## " + device.getName());
+        trace("   Driver version: " + device.getDriverVersion());
+        trace("   OpenCL version: " + device.getOpenCLVersion());
+        trace("   Max ComputeUnits: " + device.getMaxComputeUnits());
+        trace("   Max WorkgroupSize: " + device.getMaxWorkGroupSize());
+        trace("   Max WorkgroupItemDimension: " + device.getMaxWorkItemDimensions());
+        trace("   Max WorkItemSizes[]: " + Arrays.toString(device.getMaxWorkItemSizes()));
+        trace("   GlobalMemSize: " + toMegabyte(device.getGlobalMemSize()) + " Mbyte");
+        trace("   GlobalMemCacheSize: " + toKilobyte(device.getGlobalMemCacheSize()) + " Kbyte");
+        trace("   LocalMemSize: " + toKilobyte(device.getLocalMemSize()) + " Kbyte");
+        trace("   MemAllocSize: " + toMegabyte(device.getMaxMemAllocSize()) + " Mbyte");
+
+    }
+
+    private double toMegabyte(long bytes) {
+        return bytes / (1024.0 * 1024.0);
+    }
+
+    private double toKilobyte(long bytes) {
+        return bytes / 1024.0;
     }
 }

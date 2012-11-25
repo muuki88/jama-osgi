@@ -8,13 +8,13 @@ import jama.Matrix;
 import jama.MultiplicationKernel;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.bridj.Pointer;
 
 import com.nativelibs4java.opencl.CLBuffer;
 import com.nativelibs4java.opencl.CLContext;
 import com.nativelibs4java.opencl.CLEvent;
+import com.nativelibs4java.opencl.CLException;
 import com.nativelibs4java.opencl.CLMem.Usage;
 import com.nativelibs4java.opencl.CLQueue;
 import com.nativelibs4java.opencl.JavaCL;
@@ -63,32 +63,45 @@ public class GPU {
         MultiplicationKernel kernel = new MultiplicationKernel(context);
         int[] localWorkSizes = new int[] { 8, 8 };
         int[] globalWorkSizes = new int[] { A.getRowDimension(), B.getColumnDimension() };
-        System.out.println("  GlobalWorkSizes " + Arrays.toString(globalWorkSizes));
 
         CLEvent clEvent = null;
-        if (local) {
-            clEvent = kernel.floatMatrixMultLocals(queue, //
-                    resultBuffer, //
-                    aInputBuffer, //
-                    bInputBuffer, //
-                    qInputBuffer, //
-                    globalWorkSizes, //
-                    localWorkSizes);
-        } else {
-            clEvent = kernel.floatMatrixMult(queue, //
-                    resultBuffer, //
-                    aInputBuffer, //
-                    bInputBuffer, //
-                    qInputBuffer, //
-                    globalWorkSizes, //
-                    localWorkSizes);
+        Pointer<Float> outPtr = null;
+        try {
+            if (local) {
+                clEvent = kernel.floatMatrixMultLocals(queue, //
+                        resultBuffer, //
+                        aInputBuffer, //
+                        bInputBuffer, //
+                        qInputBuffer, //
+                        globalWorkSizes, //
+                        localWorkSizes);
+            } else {
+                clEvent = kernel.floatMatrixMult(queue, //
+                        resultBuffer, //
+                        aInputBuffer, //
+                        bInputBuffer, //
+                        qInputBuffer, //
+                        globalWorkSizes, //
+                        localWorkSizes);
+            }
+            // blocks until
+            outPtr = resultBuffer.read(queue, clEvent);
+
+            // mulitiplication finished
+            FloatMatrix matrix = pointerToFloatMatrix(outPtr, A.getRowDimension(), B.getColumnDimension());
+            return matrix;
+        } catch (CLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            Pointer.release(aPtr, bPtr, resultPtr, q);
+            aInputBuffer.release();
+            bInputBuffer.release();
+            qInputBuffer.release();
+            outPtr.release();
+            context.release();
         }
 
-        // blocks until
-        Pointer<Float> outPtr = resultBuffer.read(queue, clEvent);
-
-        // mulitiplication finished
-        return pointerToFloatMatrix(outPtr, A.getRowDimension(), B.getColumnDimension());
     }
 
     /* ================================================== */
