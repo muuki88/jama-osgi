@@ -10,13 +10,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.bridj.Pointer;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
-import com.nativelibs4java.opencl.CLContext;
 import com.nativelibs4java.opencl.CLDevice;
 import com.nativelibs4java.opencl.CLPlatform;
 import com.nativelibs4java.opencl.JavaCL;
@@ -34,9 +32,10 @@ import com.nativelibs4java.opencl.JavaCL;
  */
 public class GPUTest {
 
+    private static boolean gpuAvailable;
+
     private final float[][] vals = { { 1f, 4f, 7f }, { 2f, 5f, 8f }, { 3f, 6f, 9f } };
     private final float[] valsColumn = { 1f, 4f, 7f, 2f, 5f, 8f, 3f, 6f, 9f };
-    private CLContext context;
 
     @Rule
     public PrintMatrixOnFail onFail = new PrintMatrixOnFail();
@@ -44,26 +43,27 @@ public class GPUTest {
     @Rule
     public TestName name = new TestName();
 
-    @Before
-    public void setUp() {
-        context = JavaCL.createBestContext();
-    }
-
-    @After
-    public void tearDown() {
-        context.release();
+    @BeforeClass
+    public static void setUp() {
+        CLPlatform[] gpuPlatforms = JavaCL.listGPUPoweredPlatforms();
+        gpuAvailable = gpuPlatforms.length != 0;
     }
 
     @Test
     public void testGPUAvailable() {
+        if (!gpuAvailable) {
+            trace("Skipping. No gpu available to test");
+            return;
+        }
         CLPlatform[] platforms = JavaCL.listPlatforms();
         CLPlatform[] gpuPlatforms = JavaCL.listGPUPoweredPlatforms();
         assertTrue("There must a platform available", platforms.length != 0);
         assertTrue("There must a platform available", gpuPlatforms.length != 0);
 
-        CLDevice[] devices = platforms[0].listGPUDevices(true);
+        CLDevice[] devices = gpuPlatforms[0].listGPUDevices(true);
         assertTrue("There must a device available", devices.length != 0);
-        printDeviceInfo(devices[0]);
+        printDeviceInfo(gpuPlatforms[0].getBestDevice());
+
     }
 
     @Test
@@ -177,6 +177,10 @@ public class GPUTest {
     }
 
     private void checkMultiplicationFloat(int m1, int nn, int n2) throws IOException {
+        if (!gpuAvailable) {
+            trace("Skipping. No gpu available to test");
+            return;
+        }
         trace("Multiply [" + m1 + " x " + nn + "] times [" + nn + " x " + n2 + "]");
         FloatMatrix A = FloatMatrix.random(m1, nn);
         FloatMatrix B = FloatMatrix.random(nn, n2);
@@ -187,6 +191,10 @@ public class GPUTest {
     }
 
     private void checkMultiplicationLocalFloat(int m1, int nn, int n2) throws IOException {
+        if (!gpuAvailable) {
+            trace("Skipping. No gpu available to test");
+            return;
+        }
         trace("Multiply [" + m1 + " x " + nn + "] times [" + nn + " x " + n2 + "]");
         FloatMatrix A = FloatMatrix.random(m1, nn);
         FloatMatrix B = FloatMatrix.random(nn, n2);
