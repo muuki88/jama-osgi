@@ -45,8 +45,14 @@ public class GPUTest {
 
     @BeforeClass
     public static void setUp() {
-        CLPlatform[] gpuPlatforms = JavaCL.listGPUPoweredPlatforms();
-        gpuAvailable = gpuPlatforms.length != 0;
+        try {
+            CLPlatform[] gpuPlatforms = JavaCL.listGPUPoweredPlatforms();
+            gpuAvailable = gpuPlatforms.length != 0;
+        } catch (Exception e) {
+            System.out.println("Error on loading gpuPlatforms: " + e.getMessage());
+            gpuAvailable = false;
+        }
+
     }
 
     @Test
