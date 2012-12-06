@@ -40,74 +40,129 @@ public class AlgebraBenchmark extends SimpleBenchmark {
     }
 
     public void timeSolve(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.solve(C);
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.solve(C);
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
+
     }
 
     public void timeEigenvalueDecomposition(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.eig();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.eig();
+            }
+
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeLUDecomposition(int reps) {
-        for (int i = 0; i < reps; i++) {
-            SQUARE.lu();
+        try {
+            for (int i = 0; i < reps; i++) {
+                SQUARE.lu();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeCholeskyDecomposition(int reps) {
-        for (int i = 0; i < reps; i++) {
-            SQUARE.chol();
+        try {
+            for (int i = 0; i < reps; i++) {
+                SQUARE.chol();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeSingularValueDecomposition(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.svd();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.svd();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeQRDecomposition(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.qr();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.qr();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeRank(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.rank();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.rank();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeDeterminant(int reps) {
-        for (int i = 0; i < reps; i++) {
-            SQUARE.det();
+        try {
+            for (int i = 0; i < reps; i++) {
+                SQUARE.det();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeNorm1(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.norm1();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.norm1();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeNorm2(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.norm2();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.norm2();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeNormF(int reps) {
-        for (int i = 0; i < reps; i++) {
-            A.normF();
+        try {
+            for (int i = 0; i < reps; i++) {
+                A.normF();
+            }
+        } catch (RuntimeException e) {
+            onFailure(e);
         }
     }
 
     public void timeNormInf(int reps) {
         for (int i = 0; i < reps; i++) {
             A.normInf();
+        }
+    }
+
+    private void onFailure(Throwable t) {
+        try {
+            Thread.sleep(2 * (m1 + nm + n2));
+            System.out.println("[WARNING] " + t.getMessage());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
