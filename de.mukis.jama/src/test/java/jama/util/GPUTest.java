@@ -4,6 +4,9 @@ import static jama.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import jama.FloatMatrix;
+import jama.rules.GpuRequirement;
+import jama.rules.Prerequisite;
+import jama.rules.PrerequisiteRule;
 import jama.rules.PrintMatrixOnFail;
 
 import java.io.IOException;
@@ -32,8 +35,6 @@ import com.nativelibs4java.opencl.JavaCL;
  */
 public class GPUTest {
 
-    private static boolean gpuAvailable;
-
     private final float[][] vals = { { 1f, 4f, 7f }, { 2f, 5f, 8f }, { 3f, 6f, 9f } };
     private final float[] valsColumn = { 1f, 4f, 7f, 2f, 5f, 8f, 3f, 6f, 9f };
 
@@ -43,24 +44,16 @@ public class GPUTest {
     @Rule
     public TestName name = new TestName();
 
+    @Rule
+    public PrerequisiteRule prerequisite = new PrerequisiteRule();
+
     @BeforeClass
     public static void setUp() {
-        try {
-            CLPlatform[] gpuPlatforms = JavaCL.listGPUPoweredPlatforms();
-            gpuAvailable = gpuPlatforms.length != 0;
-        } catch (Exception e) {
-            System.out.println("Error on loading gpuPlatforms: " + e.getMessage());
-            gpuAvailable = false;
-        }
-
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testGPUAvailable() {
-        if (!gpuAvailable) {
-            trace("Skipping. No gpu available to test");
-            return;
-        }
         CLPlatform[] platforms = JavaCL.listPlatforms();
         CLPlatform[] gpuPlatforms = JavaCL.listGPUPoweredPlatforms();
         assertTrue("There must a platform available", platforms.length != 0);
@@ -73,6 +66,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testSquarePowerOfTwoMatrixMultiplication() throws IOException {
         int exponent = 10;
         for (int e = 3; e <= exponent; e++) {
@@ -82,6 +76,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testNonSquarePowerOfTwoMatrixMultiplication() throws IOException {
         int exponent = 10;
         for (int e1 = 3; e1 <= exponent; e1++) {
@@ -94,6 +89,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testSquareMatrixMultiplication() throws IOException {
         int[] dimension = new int[] { 8, 16, 17, 23, 32, 256 };
         for (int dim : dimension) {
@@ -102,6 +98,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testNonSquareMatrixMultiplication() throws IOException {
         int[] dim1 = new int[] { 17, 23, 256 };
         int[] dim2 = new int[] { 13, 117, 222 };
@@ -113,6 +110,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testSquarePowerOfTwoMatrixMultiplicationLocal() throws IOException {
         int exponent = 10;
         for (int e = 3; e <= exponent; e++) {
@@ -122,6 +120,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testSquareMatrixMultiplicationLocal() throws IOException {
         int[] dimension = new int[] { 8, 16, 17, 23, 32, 256 };
         for (int dim : dimension) {
@@ -130,6 +129,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testNonSquareMatrixMultiplicationLocal() throws IOException {
         int[] dim1 = new int[] { 17, 23, 256 };
         int[] dim2 = new int[] { 13, 117, 222 };
@@ -141,6 +141,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testMatrixPointerRoundtrip() {
         FloatMatrix matrix = new FloatMatrix(vals);
 
@@ -152,6 +153,7 @@ public class GPUTest {
     }
 
     @Test
+    @Prerequisite({ GpuRequirement.class })
     public void testMatrixToPointer() {
         FloatMatrix matrix = new FloatMatrix(valsColumn, 3);
 
@@ -183,10 +185,6 @@ public class GPUTest {
     }
 
     private void checkMultiplicationFloat(int m1, int nn, int n2) throws IOException {
-        if (!gpuAvailable) {
-            trace("Skipping. No gpu available to test");
-            return;
-        }
         trace("Multiply [" + m1 + " x " + nn + "] times [" + nn + " x " + n2 + "]");
         FloatMatrix A = FloatMatrix.random(m1, nn);
         FloatMatrix B = FloatMatrix.random(nn, n2);
@@ -197,10 +195,6 @@ public class GPUTest {
     }
 
     private void checkMultiplicationLocalFloat(int m1, int nn, int n2) throws IOException {
-        if (!gpuAvailable) {
-            trace("Skipping. No gpu available to test");
-            return;
-        }
         trace("Multiply [" + m1 + " x " + nn + "] times [" + nn + " x " + n2 + "]");
         FloatMatrix A = FloatMatrix.random(m1, nn);
         FloatMatrix B = FloatMatrix.random(nn, n2);
