@@ -9,8 +9,8 @@ public class GpuRequirement implements IRequirement {
         try {
             JavaCL.listPlatforms();
             JavaCL.listGPUPoweredPlatforms();
-            return true;
-        } catch (Exception e) {
+            return JavaCL.getBestDevice() != null;
+        } catch (Throwable e) {
             System.err.println("Error on loading gpuPlatforms: " + e.getMessage());
             return false;
         }
