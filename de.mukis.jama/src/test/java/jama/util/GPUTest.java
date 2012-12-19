@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.bridj.Pointer;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -47,8 +47,8 @@ public class GPUTest {
     @Rule
     public PrerequisiteRule prerequisite = new PrerequisiteRule();
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() throws InterruptedException {
     }
 
     @Test
@@ -67,7 +67,7 @@ public class GPUTest {
 
     @Test
     @Prerequisite({ GpuRequirement.class })
-    public void testSquarePowerOfTwoMatrixMultiplication() throws IOException {
+    public void testSquarePowerOfTwoMatrixMultiplication() throws Exception {
         int exponent = 10;
         for (int e = 3; e <= exponent; e++) {
             int dim = (int) Math.pow(2, e);
@@ -77,7 +77,7 @@ public class GPUTest {
 
     @Test
     @Prerequisite({ GpuRequirement.class })
-    public void testNonSquarePowerOfTwoMatrixMultiplication() throws IOException {
+    public void testNonSquarePowerOfTwoMatrixMultiplication() throws Exception {
         int exponent = 10;
         for (int e1 = 3; e1 <= exponent; e1++) {
             for (int e2 = 3; e2 <= exponent; e2++) {
@@ -90,7 +90,7 @@ public class GPUTest {
 
     @Test
     @Prerequisite({ GpuRequirement.class })
-    public void testSquareMatrixMultiplication() throws IOException {
+    public void testSquareMatrixMultiplication() throws Exception {
         int[] dimension = new int[] { 8, 16, 17, 23, 32, 256 };
         for (int dim : dimension) {
             checkMultiplicationFloat(dim, dim, dim);

@@ -66,6 +66,7 @@ public class GPU {
 
         CLEvent clEvent = null;
         Pointer<Float> outPtr = null;
+        FloatMatrix matrix = null;
         try {
             if (local) {
                 clEvent = kernel.floatMatrixMultLocals(queue, //
@@ -88,20 +89,34 @@ public class GPU {
             outPtr = resultBuffer.read(queue, clEvent);
 
             // mulitiplication finished
-            FloatMatrix matrix = pointerToFloatMatrix(outPtr, A.getRowDimension(), B.getColumnDimension());
-            return matrix;
+            matrix = pointerToFloatMatrix(outPtr, A.getRowDimension(), B.getColumnDimension());
         } catch (CLException e) {
             e.printStackTrace();
             throw e;
         } finally {
-            Pointer.release(aPtr, bPtr, resultPtr, q);
+            Pointer.release(aPtr, bPtr, outPtr, resultPtr, q);
             aInputBuffer.release();
             bInputBuffer.release();
             qInputBuffer.release();
-            outPtr.release();
+            resultBuffer.release();
+            queue.release();
             context.release();
-        }
+            clEvent.release();
 
+            aPtr = null;
+            bPtr = null;
+            outPtr = null;
+            resultPtr = null;
+            q = null;
+            aInputBuffer = null;
+            bInputBuffer = null;
+            qInputBuffer = null;
+            resultBuffer = null;
+            queue = null;
+            context = null;
+            clEvent = null;
+        }
+        return matrix;
     }
 
     /* ================================================== */
