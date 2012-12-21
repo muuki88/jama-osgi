@@ -32,14 +32,16 @@ public class GPUBenchmark extends SimpleBenchmark {
     */
 
     public void timeMatrixMultiplication(int reps) throws IOException {
+        GPU gpu = GPU.create();
         for (int i = 0; i < reps; i++) {
-            GPU.multiply(A, B);
+            gpu.multiply(A, B);
         }
     }
 
     public void timeMatrixMultiplicationLocal(int reps) throws IOException {
+        GPU gpu = GPU.create();
         for (int i = 0; i < reps; i++) {
-            GPU.multiplyLocal(A, B);
+            gpu.multiplyLocal(A, B);
         }
     }
 
@@ -70,8 +72,10 @@ public class GPUBenchmark extends SimpleBenchmark {
         long time = watch.stop().elapsedMillis();
         System.out.println("Non GPU " + time + " ms [AVG: " + (time / iters) + " ms] ");
         watch.reset().start();
+
+        GPU gpu = GPU.create();
         for (int i = 0; i < iters; i++) {
-            GPU.multiplyLocal(A, B);
+            gpu.multiplyLocal(A, B);
         }
         time = watch.stop().elapsedMillis();
         System.out.println("GPU " + time + " ms [AVG: " + (time / iters) + " ms] ");

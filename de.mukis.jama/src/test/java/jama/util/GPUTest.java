@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.bridj.Pointer;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -46,10 +45,6 @@ public class GPUTest {
 
     @Rule
     public PrerequisiteRule prerequisite = new PrerequisiteRule();
-
-    @Before
-    public void setUp() throws InterruptedException {
-    }
 
     @Test
     @Prerequisite({ GpuRequirement.class })
@@ -189,7 +184,8 @@ public class GPUTest {
         FloatMatrix A = FloatMatrix.random(m1, nn);
         FloatMatrix B = FloatMatrix.random(nn, n2);
         onFail.setMatrices(A, B);
-        FloatMatrix actual = GPU.multiply(A, B);
+        GPU gpu = GPU.create();
+        FloatMatrix actual = gpu.multiply(A, B);
         FloatMatrix expected = A.times(B);
         assertMatrixEquals(expected, actual, 0.001f);
     }
@@ -199,7 +195,9 @@ public class GPUTest {
         FloatMatrix A = FloatMatrix.random(m1, nn);
         FloatMatrix B = FloatMatrix.random(nn, n2);
         onFail.setMatrices(A, B);
-        FloatMatrix actual = GPU.multiplyLocal(A, B);
+
+        GPU gpu = GPU.create();
+        FloatMatrix actual = gpu.multiplyLocal(A, B);
         FloatMatrix expected = A.times(B);
         assertMatrixEquals(expected, actual, 0.001f);
     }

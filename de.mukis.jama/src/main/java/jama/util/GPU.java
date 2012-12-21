@@ -27,19 +27,39 @@ import com.nativelibs4java.opencl.JavaCL;
  */
 public class GPU {
 
-    public static FloatMatrix multiply(FloatMatrix A, FloatMatrix B) throws IOException {
+    private final CLContext context;
+    private static CLContext defaultContext;
+
+    static {
+        defaultContext = JavaCL.createBestContext();
+    }
+
+    public static GPU create() {
+        return new GPU(defaultContext);
+    }
+
+    public static GPU create(CLContext context) {
+        return new GPU(context);
+    }
+
+    private GPU(CLContext context) {
+        this.context = context;
+    }
+
+    /* ====================================================== */
+
+    public FloatMatrix multiply(FloatMatrix A, FloatMatrix B) throws IOException {
         return multiply(A, B, true);
     }
 
-    public static FloatMatrix multiplyLocal(FloatMatrix A, FloatMatrix B) throws IOException {
+    public FloatMatrix multiplyLocal(FloatMatrix A, FloatMatrix B) throws IOException {
         return multiply(A, B, false);
     }
 
-    private static FloatMatrix multiply(FloatMatrix A, FloatMatrix B, boolean local) throws IOException {
+    private FloatMatrix multiply(FloatMatrix A, FloatMatrix B, boolean local) throws IOException {
         if (A.getColumnDimension() != B.getRowDimension()) {
             throw new IllegalArgumentException("Matrix inner dimensions must agree.");
         }
-        CLContext context = JavaCL.createBestContext();
         CLQueue queue = context.createDefaultQueue();
 
         int resultLength = A.getRowDimension() * B.getColumnDimension();
@@ -100,21 +120,8 @@ public class GPU {
             qInputBuffer.release();
             resultBuffer.release();
             queue.release();
-            context.release();
+            // context.release();
             clEvent.release();
-
-            aPtr = null;
-            bPtr = null;
-            outPtr = null;
-            resultPtr = null;
-            q = null;
-            aInputBuffer = null;
-            bInputBuffer = null;
-            qInputBuffer = null;
-            resultBuffer = null;
-            queue = null;
-            context = null;
-            clEvent = null;
         }
         return matrix;
     }
