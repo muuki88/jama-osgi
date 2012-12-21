@@ -30,11 +30,10 @@ public class GPU {
     private final CLContext context;
     private static CLContext defaultContext;
 
-    static {
-        defaultContext = JavaCL.createBestContext();
-    }
-
     public static GPU create() {
+        if (defaultContext == null) {
+            defaultContext = JavaCL.createBestContext();
+        }
         return new GPU(defaultContext);
     }
 
