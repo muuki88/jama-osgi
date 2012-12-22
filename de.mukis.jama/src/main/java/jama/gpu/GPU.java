@@ -5,7 +5,6 @@ import static org.bridj.Pointer.allocateFloats;
 import static org.bridj.Pointer.allocateInt;
 import jama.FloatMatrix;
 import jama.Matrix;
-import jama.gpu.MultiplicationKernel;
 
 import java.io.IOException;
 
@@ -61,13 +60,15 @@ public class GPU {
         }
         CLQueue queue = context.createDefaultQueue();
 
-        int resultLength = A.getRowDimension() * B.getColumnDimension();
+        FloatMatrix padA = zeroPadding(A, MultiplicationKernel.BLOCK_SIZE);
+        FloatMatrix padB = zeroPadding(B, MultiplicationKernel.BLOCK_SIZE);
+        int resultLength = padA.getRowDimension() * padB.getColumnDimension();
 
-        Pointer<Float> aPtr = matrixToPointer(A);
-        Pointer<Float> bPtr = matrixToPointer(B);
+        Pointer<Float> aPtr = matrixToPointer(padA);
+        Pointer<Float> bPtr = matrixToPointer(padB);
         Pointer<Float> resultPtr = allocateFloats(resultLength);
         Pointer<Integer> q = allocateInt();
-        q.set(A.getColumnDimension()); // q is inner dimension
+        q.set(padA.getColumnDimension()); // q is inner dimension
 
         // Create OpenCL input buffers (using the native memory pointers aPtr
         // and bPtr) :
@@ -81,7 +82,7 @@ public class GPU {
         // Get and call the kernel :
         MultiplicationKernel kernel = new MultiplicationKernel(context);
         int[] localWorkSizes = new int[] { 8, 8 };
-        int[] globalWorkSizes = new int[] { A.getRowDimension(), B.getColumnDimension() };
+        int[] globalWorkSizes = new int[] { padA.getRowDimension(), padB.getColumnDimension() };
 
         CLEvent clEvent = null;
         Pointer<Float> outPtr = null;
@@ -108,7 +109,8 @@ public class GPU {
             outPtr = resultBuffer.read(queue, clEvent);
 
             // mulitiplication finished
-            matrix = pointerToFloatMatrix(outPtr, A.getRowDimension(), B.getColumnDimension());
+            matrix = pointerToFloatMatrix(outPtr, padA.getRowDimension(), padB.getColumnDimension());
+            matrix = removeZeroPadding(matrix, A, B);
         } catch (CLException e) {
             e.printStackTrace();
             throw e;
@@ -119,7 +121,6 @@ public class GPU {
             qInputBuffer.release();
             resultBuffer.release();
             queue.release();
-            // context.release();
             clEvent.release();
         }
         return matrix;
@@ -172,13 +173,55 @@ public class GPU {
     }
 
     /**
-     * forumlar := 2^(ceil(log_2(size)))
      * 
      * @param size
      * @return
      */
-    protected static int workgroupSize(int size) {
-        return (int) Math.pow(2, Math.ceil(Math.log(size) / Math.log(2)));
+    protected static int workgroupSize(int size, int blocksize) {
+        if (size <= blocksize) {
+            return blocksize;
+        }
+        // check modulo
+        int rest = size % blocksize;
+        if (rest == 0) {
+            return size;
+        }
+        return (size + blocksize) - rest;
     }
 
+    /**
+     * Returns a padded matrix with width/height of a correct factor determined
+     * by the workgroupSize.
+     * 
+     * If the dimensions are already correct the identical matrix is returned.
+     * 
+     * @param matrix
+     * @param workgroupSize
+     * @return
+     */
+    protected static FloatMatrix zeroPadding(FloatMatrix matrix, int workgroupSize) {
+        int m = workgroupSize(matrix.getRowDimension(), workgroupSize);
+        int n = workgroupSize(matrix.getColumnDimension(), workgroupSize);
+        if (m == matrix.getRowDimension() && n == matrix.getColumnDimension()) {
+            return matrix;
+        }
+        FloatMatrix paddedMatrix = new FloatMatrix(m, n);
+        paddedMatrix.setFloatMatrix(0, matrix.getRowDimension() - 1, 0, matrix.getColumnDimension() - 1, matrix);
+        return paddedMatrix;
+    }
+
+    /**
+     * Removes the zero padding from the result matrix.
+     * 
+     * @param result - result matrix created with zero padded matrices
+     * @param A - original non-padded matrix
+     * @param B - original non-padded matrix
+     * @return non padded result matrix
+     */
+    protected static FloatMatrix removeZeroPadding(FloatMatrix result, FloatMatrix A, FloatMatrix B) {
+        if (result.getColumnDimension() == B.getColumnDimension() && result.getRowDimension() == A.getRowDimension()) {
+            return result;
+        }
+        return result.getFloatMatrix(0, A.getRowDimension() - 1, 0, B.getColumnDimension() - 1);
+    }
 }

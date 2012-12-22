@@ -4,7 +4,6 @@ import static jama.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import jama.FloatMatrix;
-import jama.gpu.GPU;
 import jama.rules.GpuRequirement;
 import jama.rules.Prerequisite;
 import jama.rules.PrerequisiteRule;
@@ -164,13 +163,62 @@ public class GPUTest {
 
     @Test
     public void testWorkgroupSize() {
-        assertEquals(2, GPU.workgroupSize(2));
-        assertEquals(4, GPU.workgroupSize(3));
-        assertEquals(4, GPU.workgroupSize(4));
-        assertEquals(8, GPU.workgroupSize(7));
-        assertEquals(32, GPU.workgroupSize(27));
-        assertEquals(64, GPU.workgroupSize(33));
-        assertEquals(64, GPU.workgroupSize(48));
+        int blocksize = 2;
+        assertEquals(2, GPU.workgroupSize(2, blocksize));
+        assertEquals(4, GPU.workgroupSize(3, blocksize));
+        assertEquals(4, GPU.workgroupSize(4, blocksize));
+        assertEquals(8, GPU.workgroupSize(7, blocksize));
+        assertEquals(28, GPU.workgroupSize(27, blocksize));
+        assertEquals(34, GPU.workgroupSize(33, blocksize));
+        assertEquals(48, GPU.workgroupSize(48, blocksize));
+
+        blocksize = 8;
+        for (int i = 1; i < 8; i++) {
+            assertEquals(8, GPU.workgroupSize(i, blocksize));
+        }
+        assertEquals(32, GPU.workgroupSize(27, blocksize));
+        assertEquals(40, GPU.workgroupSize(33, blocksize));
+
+        blocksize = 16;
+        for (int i = 1; i < 16; i++) {
+            assertEquals(16, GPU.workgroupSize(i, blocksize));
+        }
+        assertEquals(32, GPU.workgroupSize(27, blocksize));
+        assertEquals(48, GPU.workgroupSize(33, blocksize));
+    }
+
+    @Test
+    public void testZeroPaddingRoundtrip() {
+        int workgroupsize = 8;
+        FloatMatrix matrix = FloatMatrix.random(17, 30);
+        FloatMatrix padded = GPU.zeroPadding(matrix, workgroupsize);
+        assertEquals("RowPadding incorrect", 24, padded.getRowDimension());
+        assertEquals("ColumnPadding incorrect", 32, padded.getColumnDimension());
+
+        FloatMatrix dePadded = GPU.removeZeroPadding(padded, matrix, matrix);
+        assertMatrixEquals(matrix, dePadded, 0f);
+    }
+
+    @Test
+    public void testZeroPaddingRoundtripWithMultiplication() {
+        int workgroupsize = 8;
+        FloatMatrix A = FloatMatrix.random(17, 30);
+        FloatMatrix B = FloatMatrix.random(30, 14);
+        FloatMatrix result = A.times(B);
+
+        assertEquals("RowPadding incorrect", 17, result.getRowDimension());
+        assertEquals("ColumnPadding incorrect", 14, result.getColumnDimension());
+
+        FloatMatrix paddedA = GPU.zeroPadding(A, workgroupsize);
+        FloatMatrix paddedB = GPU.zeroPadding(B, workgroupsize);
+        FloatMatrix paddedResult = paddedA.times(paddedB);
+
+        assertEquals("RowPadding incorrect", 24, paddedResult.getRowDimension());
+        assertEquals("ColumnPadding incorrect", 16, paddedResult.getColumnDimension());
+
+        FloatMatrix dePaddedResult = GPU.removeZeroPadding(paddedResult, A, B);
+
+        assertMatrixEquals(result, dePaddedResult, 0f);
     }
 
     @Test

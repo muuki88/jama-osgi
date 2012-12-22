@@ -25,7 +25,7 @@ public class FloatMatrix implements Cloneable, Serializable {
      * 
      * @serial internal array storage.
      */
-    private float[][] A;
+    private final float[][] A;
 
     /**
      * Row and column dimensions.
@@ -33,7 +33,7 @@ public class FloatMatrix implements Cloneable, Serializable {
      * @serial row dimension.
      * @serial column dimension.
      */
-    private int m, n;
+    private final int m, n;
 
     /*
      * ------------------------ Constructors ------------------------
@@ -173,6 +173,7 @@ public class FloatMatrix implements Cloneable, Serializable {
      * Clone the FloatMatrix object.
      */
 
+    @Override
     public Object clone() {
         return this.copy();
     }
@@ -290,7 +291,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
         return X;
     }
@@ -314,7 +316,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
         return X;
     }
@@ -339,7 +342,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
         return X;
     }
@@ -364,7 +368,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
         return X;
     }
@@ -401,7 +406,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
     }
 
@@ -422,7 +428,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
     }
 
@@ -444,7 +451,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
     }
 
@@ -466,7 +474,8 @@ public class FloatMatrix implements Cloneable, Serializable {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Submatrix indices");
+            throw new ArrayIndexOutOfBoundsException("Submatrix indices. Index " + e.getMessage() + ". Dimension " + X.getRowDimension()
+                    + "|" + X.getColumnDimension() + "[row|col]");
         }
     }
 
@@ -925,8 +934,9 @@ public class FloatMatrix implements Cloneable, Serializable {
                 String s = format.format(A[i][j]); // format the number
                 int padding = Math.max(1, width - s.length()); // At _least_ 1
                                                                // space
-                for (int k = 0; k < padding; k++)
+                for (int k = 0; k < padding; k++) {
                     output.print(' ');
+                }
                 output.print(s);
             }
             output.println();
@@ -948,15 +958,19 @@ public class FloatMatrix implements Cloneable, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         FloatMatrix other = (FloatMatrix) obj;
-        if (!Arrays.deepEquals(A, other.A))
+        if (!Arrays.deepEquals(A, other.A)) {
             return false;
+        }
         return true;
     }
 

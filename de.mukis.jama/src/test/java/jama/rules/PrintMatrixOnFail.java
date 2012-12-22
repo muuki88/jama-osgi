@@ -10,10 +10,13 @@ import org.junit.runner.Description;
 public class PrintMatrixOnFail extends TestWatcher {
 
     private FloatMatrix A, B;
-    private int threshold = 16;
+    private final int threshold = 16;
 
     @Override
     protected void failed(Throwable e, Description description) {
+        if (A == null || B == null) {
+            return;
+        }
         System.out.println("## Failed [" + description + "]");
         System.out.println("## " + e.getMessage());
         PrintWriter out = new PrintWriter(System.out, true);
