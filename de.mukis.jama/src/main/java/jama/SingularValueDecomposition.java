@@ -1,5 +1,6 @@
 package jama;
-import jama.util.*;
+import jama.gpu.*;
+import jama.util.Maths;
 
    /** Singular Value Decomposition.
    <P>

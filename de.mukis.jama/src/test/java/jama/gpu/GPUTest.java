@@ -1,9 +1,10 @@
-package jama.util;
+package jama.gpu;
 
 import static jama.MatrixAsserts.assertMatrixEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import jama.FloatMatrix;
+import jama.gpu.GPU;
 import jama.rules.GpuRequirement;
 import jama.rules.Prerequisite;
 import jama.rules.PrerequisiteRule;

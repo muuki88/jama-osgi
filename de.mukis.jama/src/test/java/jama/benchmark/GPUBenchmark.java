@@ -1,7 +1,7 @@
 package jama.benchmark;
 
 import jama.FloatMatrix;
-import jama.util.GPU;
+import jama.gpu.GPU;
 
 import java.io.IOException;
 

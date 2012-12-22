@@ -4,15 +4,21 @@ import com.nativelibs4java.opencl.JavaCL;
 
 public class GpuRequirement implements IRequirement {
 
+    private Boolean available = null;
+
     @Override
     public boolean available() {
+        if (available != null) {
+            return available.booleanValue();
+        }
         try {
             JavaCL.listPlatforms();
             JavaCL.listGPUPoweredPlatforms();
-            return JavaCL.getBestDevice() != null;
+            available = JavaCL.getBestDevice() != null;
         } catch (Throwable e) {
             System.err.println("Error on loading gpuPlatforms: " + e.getMessage());
-            return false;
+            available = false;
         }
+        return available.booleanValue();
     }
 }

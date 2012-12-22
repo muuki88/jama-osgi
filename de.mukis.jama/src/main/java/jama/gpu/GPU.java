@@ -1,11 +1,11 @@
-package jama.util;
+package jama.gpu;
 
 import static org.bridj.Pointer.allocateDoubles;
 import static org.bridj.Pointer.allocateFloats;
 import static org.bridj.Pointer.allocateInt;
 import jama.FloatMatrix;
 import jama.Matrix;
-import jama.MultiplicationKernel;
+import jama.gpu.MultiplicationKernel;
 
 import java.io.IOException;
 
