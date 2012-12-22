@@ -49,7 +49,8 @@ public class GPUBenchmark extends SimpleBenchmark {
         // programm arguments
         // -JmemoryMax=-Xmx512M,-Xmx1024M,-Xmx2048M
         // Runner.main(GPUBenchmark.class, args);
-        stopWatchTest();
+        // stopWatchTest();
+        stopWatchTestGpuOnly();
     }
 
     private static void stopWatchTest() throws IOException {
@@ -78,6 +79,20 @@ public class GPUBenchmark extends SimpleBenchmark {
             gpu.multiplyLocal(A, B);
         }
         time = watch.stop().elapsedMillis();
+        System.out.println("GPU " + time + " ms [AVG: " + (time / iters) + " ms] ");
+    }
+
+    private static void stopWatchTestGpuOnly() throws IOException {
+        int iters = 3;
+        int dim = 4096;
+        FloatMatrix A = FloatMatrix.random(dim, dim);
+        FloatMatrix B = FloatMatrix.random(dim, dim);
+        GPU gpu = GPU.create();
+        Stopwatch watch = new Stopwatch().start();
+        for (int i = 0; i < iters; i++) {
+            gpu.multiplyLocal(A, B);
+        }
+        long time = watch.stop().elapsedMillis();
         System.out.println("GPU " + time + " ms [AVG: " + (time / iters) + " ms] ");
     }
 
