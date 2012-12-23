@@ -51,10 +51,13 @@
     </issueManagement>
 
     <distributionManagement>
+    	<!-- GitHub Page deployment https://wiki.jenkins-ci.org/display/JENKINS/Site+Creation+and+Deployment -->
+    	<!-- 
         <site>
             <id>github-project-site</id>
             <url>gitsite:git@github.com/muuki88/jama-osgi</url>
         </site>
+        -->
     </distributionManagement>
 
     <mailingLists>
@@ -111,7 +114,7 @@
 	</developers>
     <build>
     <!-- GitHub Page deployment https://wiki.jenkins-ci.org/display/JENKINS/Site+Creation+and+Deployment -->
-        <extensions>
+        <!-- <extensions>
             <extension>
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-provider-gitexe</artifactId>
@@ -127,7 +130,7 @@
                 <artifactId>wagon-gitsite</artifactId>
                 <version>0.3.1</version>
             </extension>
-        </extensions>
+        </extensions> -->
     <!-- To define the plugin version in your parent POM -->
         <pluginManagement>
             <plugins>
