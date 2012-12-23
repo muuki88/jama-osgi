@@ -2,29 +2,48 @@ package jama.benchmark;
 
 import jama.Matrix;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.carrotsearch.junitbenchmarks.AbstractBenchmark;
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 
+@RunWith(Parameterized.class)
 public class AlgebraBenchmarkTest extends AbstractBenchmark {
 
-    private Matrix A;
-    private Matrix C;
-    private Matrix SQUARE;
+    private Matrix A, B, C, SQUARE;
+    private final int m1, nm, n2;
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        Object[][] data = new Object[][] { { 128, 128, 128 }, { 128, 256, 256 }, { 512, 512, 512 } };
+        return Arrays.asList(data);
+    }
+
+    public AlgebraBenchmarkTest(int m1, int nm, int n2) {
+        this.m1 = m1;
+        this.nm = nm;
+        this.n2 = n2;
+    }
 
     @Before
     public void setUp() {
-        A = Matrix.random(512, 512);
-        C = Matrix.random(512, 512);
-        SQUARE = Matrix.random(512, 512);
+        A = Matrix.random(m1, nm);
+        B = Matrix.random(nm, n2);
+        C = Matrix.random(m1, nm);
+        SQUARE = Matrix.random(m1, m1);
     }
 
     @BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 2, callgc = true)
     @Test
     public void testMatrixMultiplication() {
-        A.times(A);
+        A.times(B);
     }
 
     @BenchmarkOptions(benchmarkRounds = 5, warmupRounds = 2, callgc = true)
@@ -147,5 +166,6 @@ public class AlgebraBenchmarkTest extends AbstractBenchmark {
 
     private void onFailure(Throwable t) {
         System.err.println("[WARNING] " + t.getMessage());
+        System.err.println("m1 = " + m1 + "; nm = " + nm + "; n2 = " + n2);
     }
 }
