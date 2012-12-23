@@ -3,25 +3,37 @@
   xsi:schemaLocation="http://maven.apache.org/FML/1.0 http://maven.apache.org/xsd/fml-1.0.xsd"
   id="General FAQ">
   <part id="General">
-    <faq id="where">
-      <question>Where did Maven come from?</question>
-      <answer>
-        <p>
-          Maven was created by a group of software developers who were tired
-          of wasting their time fiddling around with builds and wanted to get
-          down to brass tacks and actually develop software!
-        </p>
-      </answer>
-    </faq>
-    <faq id="why">
-      <question>Why is Maven so wildly popular?</question>
-      <answer>
-        <p>
-          Maven saves you so much time in your software development efforts that
-          you will have time to learn a second language, relax ten hours a
-          day, and train for that marathon you've always wanted to run!
-        </p>
-      </answer>
-    </faq>
+    <title>General</title>
+   	<faq id="what">
+   		<question>What is Jama</question>
+   		<answer>Jama is a lightweight java library for matrix operations and calculations.</answer>
+   	</faq>
+  </part>
+  <part id="GPU">
+  	<title>Matrix calculations on the GPU</title>
+  	<faq id="GPUBinding">
+  		<question>How is the GPU connected?</question>
+  		<answer>
+  		<a href="http://code.google.com/p/javacl/">JavaCL</a> is used to connect the java application with the gpu.
+  		</answer>
+  	</faq>
+  	<faq id="openCL">
+  		<question>Where can I find more information about OpenCL</question>
+  		<answer>Take a look at the <a href="http://www.khronos.org/registry/cl/">OpenCL page</a>. If you want to write
+  		a kernel than take a look at the very good <a href="http://www.khronos.org/files/opencl-1-2-quick-reference-card.pdf">cheatsheet</a></answer>
+  	</faq>
+  	<faq id="MatrixMultiplication">
+  	<question>What are the implementation details of the matrix multiplication?</question>
+  	<answer>
+  		<p>
+  		This <a href="http://stackoverflow.com/questions/9250897/dynamic-matrix-multiplication-with-cuda/9261675#9261675">Stackoverflow post</a> gives the
+  		mathematical foundation of the algorithm.
+  		</p>
+  		<p>
+  		The implementation is derived from <a href="http://goo.gl/STE5D">this tutorial</a>,
+  		which only works for correct sized matrices.
+  		</p>
+  	</answer>
+  	</faq>
   </part>
 </faqs>
