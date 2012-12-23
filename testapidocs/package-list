@@ -1,3 +1,5 @@
-Jama.examples
-Jama.test
+jama
 jama.benchmark
+jama.examples
+jama.gpu
+jama.rules

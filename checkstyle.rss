@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012</copyright>
     <item>
-      <title>File: 10,
-             Errors: 3147,
+      <title>File: 11,
+             Errors: 2054,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.util.MatrixReader.java">Jama/util/MatrixReader.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.LUDecomposition.java">jama/LUDecomposition.java</a>
                 </td>
                 <td>
                   0
@@ -38,12 +38,12 @@
                   0
                 </td>
                 <td>
-                  21
+                  65
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.QRDecomposition.java">Jama/QRDecomposition.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.FloatMatrix.java">jama/FloatMatrix.java</a>
                 </td>
                 <td>
                   0
@@ -52,12 +52,12 @@
                   0
                 </td>
                 <td>
-                  77
+                  293
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.SingularValueDecomposition.java">Jama/SingularValueDecomposition.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.CholeskyDecomposition.java">jama/CholeskyDecomposition.java</a>
                 </td>
                 <td>
                   0
@@ -66,12 +66,12 @@
                   0
                 </td>
                 <td>
-                  409
+                  71
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.LUDecomposition.java">Jama/LUDecomposition.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.gpu.GPU.java">jama/gpu/GPU.java</a>
                 </td>
                 <td>
                   0
@@ -80,12 +80,12 @@
                   0
                 </td>
                 <td>
-                  66
+                  88
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.util.MatrixWriter.java">Jama/util/MatrixWriter.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.SingularValueDecomposition.java">jama/SingularValueDecomposition.java</a>
                 </td>
                 <td>
                   0
@@ -94,12 +94,12 @@
                   0
                 </td>
                 <td>
-                  41
+                  408
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.EigenvalueDecomposition.java">Jama/EigenvalueDecomposition.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.util.MatrixWriter.java">jama/util/MatrixWriter.java</a>
                 </td>
                 <td>
                   0
@@ -108,12 +108,12 @@
                   0
                 </td>
                 <td>
-                  621
+                  40
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.CholeskyDecomposition.java">Jama/CholeskyDecomposition.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.Matrix.java">jama/Matrix.java</a>
                 </td>
                 <td>
                   0
@@ -122,12 +122,12 @@
                   0
                 </td>
                 <td>
-                  72
+                  349
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.util.Maths.java">Jama/util/Maths.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.QRDecomposition.java">jama/QRDecomposition.java</a>
                 </td>
                 <td>
                   0
@@ -136,12 +136,12 @@
                   0
                 </td>
                 <td>
-                  25
+                  76
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.Matrix.java">Jama/Matrix.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.util.Maths.java">jama/util/Maths.java</a>
                 </td>
                 <td>
                   0
@@ -150,12 +150,12 @@
                   0
                 </td>
                 <td>
-                  1524
+                  24
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#Jama.FloatMatrix.java">Jama/FloatMatrix.java</a>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.util.MatrixReader.java">jama/util/MatrixReader.java</a>
                 </td>
                 <td>
                   0
@@ -164,7 +164,21 @@
                   0
                 </td>
                 <td>
-                  291
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://math.nist.gov/javanumerics/jama//checkstyle.html#jama.EigenvalueDecomposition.java">jama/EigenvalueDecomposition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  620
                 </td>
               </tr>
                       </tbody>
