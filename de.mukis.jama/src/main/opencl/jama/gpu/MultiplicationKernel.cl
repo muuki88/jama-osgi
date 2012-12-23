@@ -23,7 +23,7 @@ floatMatrixMult(     __global       float * MResp,
     }
 } 
 
-#define BLOCK_SIZE 8
+#define BLOCK_SIZE 16
 
 __kernel __attribute__((reqd_work_group_size(BLOCK_SIZE, BLOCK_SIZE, 1))) void
 floatMatrixMultLocals(__global       float * MResp,

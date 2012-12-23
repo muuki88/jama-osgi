@@ -19,6 +19,28 @@ import com.nativelibs4java.opencl.CLQueue;
 import com.nativelibs4java.opencl.JavaCL;
 
 /**
+ * <p>
+ * This is the main class to perform computation on the GPU. Create a GPU via
+ * the factory methods {@code create(..)}
+ * <p>
+ * 
+ * <h3>Example</h3>
+ * <p>
+ * 
+ * <pre>
+ * GPU gpu = GPU.create(); // Creates a gpu with the JavaCL.createBestContext()
+ * FloatMatrix C = gpu.multiplyLocal(A, B);
+ * </pre>
+ * 
+ * </p>
+ * 
+ * <p>
+ * Note that this is currently in experimental stadium. You cannot influence <br>
+ * the parameters of the openCL kernels. So <em>blocksize</em>,
+ * <em>workgroupsize</em> and <br>
+ * <em>localworkgroupsize</em> are hardcoded. This may change in future
+ * releases.
+ * </p>
  * 
  * @author Nepomuk Seiler
  * @version 2.0.0-SNAPSHOT
@@ -45,11 +67,29 @@ public class GPU {
     }
 
     /* ====================================================== */
+    /* ================ Computation methods ================= */
+    /* ====================================================== */
 
+    /**
+     * Use the naive openCL kernel, which computes more exact results than the
+     * local variant.
+     * 
+     * @param A - Left input matrix
+     * @param B - Right input matrix
+     * @return A * B
+     */
     public FloatMatrix multiply(FloatMatrix A, FloatMatrix B) throws IOException {
         return multiply(A, B, true);
     }
 
+    /**
+     * Use the local optimized openCL kernel, which may yield worse results than
+     * the non local variant.
+     * 
+     * @param A - left input matrix
+     * @param B - right input matrix
+     * @return A * B
+     */
     public FloatMatrix multiplyLocal(FloatMatrix A, FloatMatrix B) throws IOException {
         return multiply(A, B, false);
     }
@@ -81,7 +121,7 @@ public class GPU {
 
         // Get and call the kernel :
         MultiplicationKernel kernel = new MultiplicationKernel(context);
-        int[] localWorkSizes = new int[] { 8, 8 };
+        int[] localWorkSizes = new int[] { MultiplicationKernel.BLOCK_SIZE, MultiplicationKernel.BLOCK_SIZE };
         int[] globalWorkSizes = new int[] { padA.getRowDimension(), padB.getColumnDimension() };
 
         CLEvent clEvent = null;
