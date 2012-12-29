@@ -25,6 +25,7 @@
         <javadoc.version>2.9</javadoc.version>
         <maven-jxr-plugin.version>2.2</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
+        <github.global.server>github</github.global.server>
 	</properties>
 
 	<modules>
