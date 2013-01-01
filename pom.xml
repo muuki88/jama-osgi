@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -17,15 +18,15 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho.version>0.16.0</tycho.version>
-        <project.reports.version>2.6</project.reports.version>
-        <findbugs.version>2.5.2</findbugs.version>
-        <checkstyle.version>2.9.1</checkstyle.version>
-        <surefire.reportplugin.version>2.12.4</surefire.reportplugin.version>
-        <changelog.version>2.2</changelog.version>
-        <javadoc.version>2.9</javadoc.version>
-        <maven-jxr-plugin.version>2.2</maven-jxr-plugin.version>
-        <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
-        <github.global.server>github</github.global.server>
+		<project.reports.version>2.6</project.reports.version>
+		<findbugs.version>2.5.2</findbugs.version>
+		<checkstyle.version>2.9.1</checkstyle.version>
+		<surefire.reportplugin.version>2.12.4</surefire.reportplugin.version>
+		<changelog.version>2.2</changelog.version>
+		<javadoc.version>2.9</javadoc.version>
+		<maven-jxr-plugin.version>2.2</maven-jxr-plugin.version>
+		<maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<modules>
@@ -46,30 +47,26 @@
 		<developerConnection>scm:git:git@github.com:muuki88/jama-osgi.git</developerConnection>
 	</scm>
 
-    <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/muuki88/jama-osgi/issues</url>
-    </issueManagement>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/muuki88/jama-osgi/issues</url>
+	</issueManagement>
 
-    <distributionManagement>
-    	<!-- GitHub Page deployment https://wiki.jenkins-ci.org/display/JENKINS/Site+Creation+and+Deployment -->
-    	<!-- 
-        <site>
-            <id>github-project-site</id>
-            <url>gitsite:git@github.com/muuki88/jama-osgi</url>
-        </site>
-        -->
-    </distributionManagement>
+	<distributionManagement>
+		<!-- GitHub Page deployment https://wiki.jenkins-ci.org/display/JENKINS/Site+Creation+and+Deployment -->
+		<!-- <site> <id>github-project-site</id> <url>gitsite:git@github.com/muuki88/jama-osgi</url> 
+			</site> -->
+	</distributionManagement>
 
-    <mailingLists>
-        <mailingList>
-          <name>Jama User List</name>
-          <subscribe>listproc@nist.gov</subscribe>
-          <unsubscribe>listproc@nist.gov</unsubscribe>
-          <post>jama@nist.gov</post>
-          <archive>http://cio.nist.gov/esd/emaildir/lists/jama/maillist.html</archive>
-        </mailingList>
-    </mailingLists>
+	<mailingLists>
+		<mailingList>
+			<name>Jama User List</name>
+			<subscribe>listproc@nist.gov</subscribe>
+			<unsubscribe>listproc@nist.gov</unsubscribe>
+			<post>jama@nist.gov</post>
+			<archive>http://cio.nist.gov/esd/emaildir/lists/jama/maillist.html</archive>
+		</mailingList>
+	</mailingLists>
 
 	<developers>
 		<developer>
@@ -113,71 +110,65 @@
 			<email>nepomuk.seiler@gmail.com</email>
 		</developer>
 	</developers>
-    <build>
-    <!-- GitHub Page deployment https://wiki.jenkins-ci.org/display/JENKINS/Site+Creation+and+Deployment -->
-        <!-- <extensions>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-provider-gitexe</artifactId>
-                <version>1.3</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-manager-plexus</artifactId>
-                <version>1.3</version>
-            </extension>
-            <extension>
-                <groupId>org.kathrynhuxtable.maven.wagon</groupId>
-                <artifactId>wagon-gitsite</artifactId>
-                <version>0.3.1</version>
-            </extension>
-        </extensions> -->
-    <!-- To define the plugin version in your parent POM -->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                      <groupId>org.codehaus.mojo</groupId>
-                      <artifactId>findbugs-maven-plugin</artifactId>
-                      <version>${findbugs.version}</version>
-                 </plugin>
-                 <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-project-info-reports-plugin</artifactId>
-                      <version>${project.reports.version}</version>
-                 </plugin>
-             </plugins>
-        </pluginManagement>
-    </build>
+	<build>
+		<!-- To define the plugin version in your parent POM -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+					<version>${findbugs.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>${project.reports.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.2</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.doxia</groupId>
+							<artifactId>doxia-module-markdown</artifactId>
+							<version>1.3</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-        <id>release-sign-artifacts</id>
-        <activation>
-            <property>
-                <name>performRelease</name>
-                <value>true</value>
-            </property>
-        </activation>
-        <build>
-            <plugins>
-              <!-- Sign jars with pgp -->
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                  <execution>
-                    <id>sign-artifacts</id>
-                    <phase>verify</phase>
-                    <goals>
-                      <goal>sign</goal>
-                    </goals>
-                  </execution>
-                </executions>
-              </plugin>
-            </plugins>
-        </build>
-        </profile>
-    </profiles>
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- Sign jars with pgp -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

@@ -25,7 +25,7 @@ Each release is published as OSGi bundle on maven central, too.
 <dependency>
     <groupId>de.mukis</groupId>
     <artifactId>de.mukis.jama</artifactId>
-    <version>1.1.3</version>
+    <version>2.0.0.M1</version>
 </dependency>
 ```
 
