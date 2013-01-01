@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20130101" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>Maven - CPD Results</title>
+    <title>Maven - </title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -64,12 +64,10 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Jama Project</li>
                                 
-      <li>
+      <li class="active">
     
-                          <a href="getting-started.html" title="Getting started">
-          <i class="none"></i>
-        Getting started</a>
-            </li>
+            <a href="#"><i class="none"></i>Getting started</a>
+          </li>
                                                                                                                                                                                             
       <li>
     
@@ -273,116 +271,20 @@
                 
         <div id="bodyColumn"  class="span9" >
                                   
-            <div class="section"><h2>CPD Results<a name="CPD_Results"></a></h2><p>The following document contains the results of PMD's  <a class="externalLink" href="http://pmd.sourceforge.net/cpd.html">CPD</a> 4.3.</p></div><div class="section"><h2>Duplications<a name="Duplications"></a></h2><table border="0" class="table table-striped"><tr class="a"><th>File</th><th>Line</th></tr><tr class="b"><td>jama/FloatMatrix.java</td><td>860</td></tr><tr class="a"><td>jama/Matrix.java</td><td>1068</td></tr><tr class="b"><td colspan='2'><div><pre>                X[i][j] = (i == j ? 1.0f : 0.0f);
-            }
-        }
-        return A;
-    }
-
-    /**
-     * Print the matrix to stdout. Line the elements up in columns with a
-     * Fortran-like 'Fw.d' style format.
-     * 
-     * @param w Column width.
-     * @param d Number of digits after the decimal.
-     */
-
-    public void print(int w, int d) {
-        print(new PrintWriter(System.out, true), w, d);
-    }
-
-    /**
-     * Print the matrix to the output stream. Line the elements up in columns
-     * with a Fortran-like 'Fw.d' style format.
-     * 
-     * @param output Output stream.
-     * @param w Column width.
-     * @param d Number of digits after the decimal.
-     */
-
-    public void print(PrintWriter output, int w, int d) {
-        DecimalFormat format = new DecimalFormat();
-        format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
-        format.setMinimumIntegerDigits(1);
-        format.setMaximumFractionDigits(d);
-        format.setMinimumFractionDigits(d);
-        format.setGroupingUsed(false);
-        print(output, format, w + 2);
-    }
-
-    /**
-     * Print the matrix to stdout. Line the elements up in columns. Use the
-     * format object, and right justify within columns of width characters. Note
-     * that is the matrix is to be read back in, you probably will want to use a
-     * NumberFormat that is set to US Locale.
-     * 
-     * @param format A Formatting object for individual elements.
-     * @param width Field width for each column.
-     * @see java.text.DecimalFormat#setDecimalFormatSymbols
-     */
-
-    public void print(NumberFormat format, int width) {
-        print(new PrintWriter(System.out, true), format, width);
-    }
-
-    // DecimalFormat is a little disappointing coming from Fortran or C's
-    // printf.
-    // Since it doesn't pad on the left, the elements will come out different
-    // widths. Consequently, we'll pass the desired column width in as an
-    // argument and do the extra padding ourselves.
-
-    /**
-     * Print the matrix to the output stream. Line the elements up in columns.
-     * Use the format object, and right justify within columns of width
-     * characters. Note that is the matrix is to be read back in, you probably
-     * will want to use a NumberFormat that is set to US Locale.
-     * 
-     * @param output the output stream.
-     * @param format A formatting object to format the matrix elements
-     * @param width Column width.
-     * @see java.text.DecimalFormat#setDecimalFormatSymbols
-     */
-
-    public void print(PrintWriter output, NumberFormat format, int width) {
-        output.println(); // start on new line.
-        for (int i = 0; i &lt; m; i++) {
-            for (int j = 0; j &lt; n; j++) {
-                String s = format.format(A[i][j]); // format the number
-                int padding = Math.max(1, width - s.length()); // At _least_ 1
-                                                               // space
-                for (int k = 0; k &lt; padding; k++) {
-                    output.print(' ');
-                }
-                output.print(s);
-            }
-            output.println();
-        }
-        output.println(); // end with blank line.
-    }</pre></div></td></tr></table><table border="0" class="table table-striped"><tr class="a"><th>File</th><th>Line</th></tr><tr class="b"><td>jama/util/MatrixWriter.java</td><td>74</td></tr><tr class="a"><td>jama/util/MatrixWriter.java</td><td>98</td></tr><tr class="b"><td colspan='2'><div><pre>    public void writeMatrix(Matrix matrix) {
-        println(); // start on new line.
-        for (int row = 0; row &lt; matrix.getRowDimension(); row++) {
-            for (int col = 0; col &lt; matrix.getColumnDimension(); col++) {
-                String s = format.format(matrix.get(row, col));
-
-                // At least 1 space
-                int padding = Math.max(1, width - s.length());
-                for (int k = 0; k &lt; padding; k++) {
-                    print(' ');
-                }
-                print(s);
-            }
-            println();
-        }
-        println(); // end with blank line.
-        flush();
-    }
-
-    /**
-     * Writes the given matrix.
-     * 
-     * @param matrix
-     */
-    public void writeMatrix(FloatMatrix matrix) {</pre></div></td></tr></table></div>
+            <h1>Get Jama</h1><p>Each release is published as OSGi bundle on maven central.</p>
+<div class="source"><pre class="prettyprint">&lt;dependency&gt;
+    &lt;groupId&gt;de.mukis&lt;/groupId&gt;
+    &lt;artifactId&gt;de.mukis.jama&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0.M1&lt;/version&gt;
+&lt;/dependency&gt;
+</pre></div><p>Or just <a class="externalLink" href="http://search.maven.org/#browse%7C2089348230">download it</a> and put it on the classpath.</p><h1>Create a Matrix</h1>
+<div class="source"><pre class="prettyprint">double[][] array = {{1.,2.,3},{4.,5.,6.},{7.,8.,10.}}; 
+Matrix A = new Matrix(array); 
+Matrix b = Matrix.random(3,1); 
+Matrix x = A.solve(b); 
+Matrix Residual = A.times(x).minus(b); 
+double rnorm = Residual.normInf();
+</pre></div>
                   </div>
             </div>
           </div>
