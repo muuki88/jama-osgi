@@ -191,7 +191,7 @@
 		<dependency>
 			<groupId>com.nativelibs4java</groupId>
 			<artifactId>javacl</artifactId>
-			<version>1.0.0-RC2</version>
+			<version>1.0.0-RC3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -206,4 +206,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<name>Jama</name>
 </project>
