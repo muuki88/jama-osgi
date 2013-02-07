@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2013-02-07T13:33:52.375">
+<pmd version="4.3" timestamp="2013-02-07T14:26:56.183">
 <file name="/home/muki/Development/git/jama-osgi/de.mukis.jama/src/main/java/jama/Matrix.java">
 <violation beginline="1177" endline="1177" begincolumn="43" endcolumn="66" rule="AvoidThreadGroup" ruleset="Basic Rules" package="jama" class="Matrix" method="read" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#AvoidThreadGroup" priority="3">
 Avoid using java.lang.ThreadGroup; it is not thread safe
