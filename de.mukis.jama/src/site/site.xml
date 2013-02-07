@@ -23,37 +23,24 @@
 			<item name="Source Code" href="https://github.com/muuki88/jama-osgi" />
 		</links>
 
-		<menu name="Jama Project">
+		<menu>
+			<item name="Jama" href="index.html" />
 			<item name="Getting started" href="getting-started.html" />
-			<item name="Project Reports" href="project-reports.html">
-				<item name="Project Info" href="project-info.html" />
-				<item name="Project Summary" href="project-summary.html" />
-				<item name="FindBugs" href="findbugs.html" />
-				<item name="Checkstyle" href="checkstyle.html" />
-				<item name="Surefire Test Report" href="surefire-report.html" />
-				<item name="Changelog" href="changelog.html" />
-				<item name="Dev Activity" href="dev-activity.html" />
-				<item name="File Activity" href="file-activity.html" />
-			</item>
-			<item name="Dependencies" href="#">
-				<item name="Dependencies" href="dependencies.html" />
-				<item name="Dependecy Convergence" href="dependency-convergence.html" />
-				<item name="Plugins" href="plugins.html" />
-				<item name="Plugin Management" href="plugin-management.html" />
-			</item>
-			<item name="Developing" href="#">
-				<item name="Javadoc" href="apidocs/index.html" />
-				<item name="Issues" href="issue-tracking.html" />
-				<item name="Buildsystem" href="dependency-info.html" />
-				<item name="Distribution" href="distribution-management.html" />
-				<item name="License" href="license.html" />
-			</item>
-			<item name="Community" href="#">
-				<item name="Mailing List" href="mail-lists.html" />
-				<item name="Developers" href="team-list.html" />
-				<item name="Issues" href="issue-tracking.html" />
-			</item>
 			<item name="FAQ" href="faq.html" />
 		</menu>
+		<menu ref="reports" />
 	</body>
+
+	<custom>
+		<fluidoSkin>
+			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+			<gitHub>
+				<projectId>muuki88/jama-osgi</projectId>
+			</gitHub>
+			<ohloh>
+				<projectId>621563</projectId>
+				<widget>stats</widget>
+			</ohloh>
+		</fluidoSkin>
+	</custom>
 </project>
