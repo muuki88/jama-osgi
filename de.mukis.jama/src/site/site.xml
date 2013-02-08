@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<project name="Maven" xmlns="http://maven.apache.org/DECORATION/1.0.0"
+<project name="Jama" xmlns="http://maven.apache.org/DECORATION/1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
 	<bannerLeft>
-		<name>Maven</name>
-		<src>http://maven.apache.org/images/apache-maven-project.png</src>
-		<href>http://maven.apache.org/</href>
+		<name>Jama</name>
+		<src>img/jama-banner.png</src>
+		<href>http://math.nist.gov/javanumerics/jama/</href>
 	</bannerLeft>
-	<bannerRight>
-		<src>http://maven.apache.org/images/maven-small.gif</src>
-	</bannerRight>
 
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
