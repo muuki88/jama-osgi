@@ -183,7 +183,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Export-Package>Jama.*</Export-Package>
+						<Export-Package>jama.*</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
