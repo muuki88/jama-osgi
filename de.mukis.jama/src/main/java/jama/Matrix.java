@@ -10,6 +10,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * Jama = Java Matrix class.
@@ -93,10 +94,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * @param n Number of colums.
      */
 
-    public Matrix(int m, int n) {
-        this.m = m;
-        this.n = n;
-        A = new double[m][n];
+    public Matrix(final int m, final int n) {
+        this.A = new double[this.m = m][this.n = n];
     }
 
     /**
@@ -107,13 +106,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * @param s Fill the matrix with this scalar value.
      */
 
-    public Matrix(int m, int n, double s) {
-        this.m = m;
-        this.n = n;
-        A = new double[m][n];
+    public Matrix(final int m,final int n,final double s) {
+        this(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = s;
+                this.A[i][j] = s;
             }
         }
     }
@@ -126,15 +123,13 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * @see #constructWithCopy
      */
 
-    public Matrix(double[][] A) {
-        m = A.length;
-        n = A[0].length;
-        for (int i = 0; i < m; i++) {
-            if (A[i].length != n) {
+    public Matrix(final double[][] A) {
+        this(A, A.length, A[0].length);
+        for (final double r[] : this.A) {
+            if (r.length != this.n) {
                 throw new IllegalArgumentException("All rows must have the same length.");
             }
         }
-        this.A = A;
     }
 
     /**
@@ -162,11 +157,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
     public Matrix(double vals[], int m) {
         this.m = m;
-        n = (m != 0 ? vals.length / m : 0);
+        this.n = (m != 0 ? vals.length / m : 0);
         if (m * n != vals.length) {
             throw new IllegalArgumentException("Array length must be a multiple of m.");
         }
-        A = new double[m][n];
+        this.A = new double[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 A[i][j] = vals[i + j * m];
@@ -565,7 +560,10 @@ public class Matrix implements Cloneable, java.io.Serializable {
             for (int i = 0; i < m; i++) {
                 s += Math.abs(A[i][j]);
             }
-            f = Math.max(f, s);
+            
+            if (f < s) {
+                f = s;
+            }
         }
         return f;
     }
@@ -577,7 +575,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public double norm2() {
-        return (new SingularValueDecomposition(this).norm2());
+        return this.svd().norm2();
     }
 
     /**
@@ -588,12 +586,14 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
     public double normInf() {
         double f = 0;
-        for (int i = 0; i < m; i++) {
+        for (final double r[] : this.A) {
             double s = 0;
-            for (int j = 0; j < n; j++) {
-                s += Math.abs(A[i][j]);
+            for (final double d : r) {
+                s += Math.abs(d);
             }
-            f = Math.max(f, s);
+            if (f < s) {
+                f = s;
+            }
         }
         return f;
     }
@@ -606,9 +606,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
     public double normF() {
         double f = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                f = Maths.hypot(f, A[i][j]);
+        for (final double[] row : this.A) {
+            for (final double d : row) {
+                f = Maths.hypot(f, d);
             }
         }
         return f;
@@ -661,7 +661,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
         checkMatrixDimensions(B);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = A[i][j] + B.A[i][j];
+                A[i][j] += B.A[i][j];
             }
         }
         return this;
@@ -697,7 +697,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
         checkMatrixDimensions(B);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = A[i][j] - B.A[i][j];
+                A[i][j] -= B.A[i][j];
             }
         }
         return this;
@@ -733,7 +733,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
         checkMatrixDimensions(B);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = A[i][j] * B.A[i][j];
+                A[i][j] *= B.A[i][j];
             }
         }
         return this;
@@ -769,7 +769,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
         checkMatrixDimensions(B);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = A[i][j] / B.A[i][j];
+                A[i][j] /= B.A[i][j];
             }
         }
         return this;
@@ -839,7 +839,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     public Matrix timesEquals(double s) {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = s * A[i][j];
+                A[i][j] *= s;
             }
         }
         return this;
@@ -965,7 +965,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public Matrix solve(Matrix B) {
-        return (m == n ? (new LUDecomposition(this)).solve(B) : (new QRDecomposition(this)).solve(B));
+        return (m == n ? this.lu().solve(B) : this.qr().solve(B));
     }
 
     /**
@@ -996,7 +996,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public double det() {
-        return new LUDecomposition(this).det();
+        return this.lu().det();
     }
 
     /**
@@ -1006,7 +1006,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public int rank() {
-        return new SingularValueDecomposition(this).rank();
+        return this.svd().rank();
     }
 
     /**
@@ -1016,7 +1016,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public double cond() {
-        return new SingularValueDecomposition(this).cond();
+        return this.svd().cond();
     }
 
     /**
@@ -1042,11 +1042,12 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public static Matrix random(int m, int n) {
-        Matrix A = new Matrix(m, n);
+        final Random rnd = new Random();
+        final Matrix A = new Matrix(m, n);
         double[][] X = A.getArray();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                X[i][j] = Math.random();
+                X[i][j] = rnd.nextDouble();
             }
         }
         return A;
@@ -1061,7 +1062,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
      */
 
     public static Matrix identity(int m, int n) {
-        Matrix A = new Matrix(m, n);
+        final Matrix A = new Matrix(m, n);
         double[][] X = A.getArray();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -1079,8 +1080,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * @param d Number of digits after the decimal.
      */
 
-    public void print(int w, int d) {
-        print(new PrintWriter(System.out, true), w, d);
+    public void print(final int w, final int d) {
+        this.print(new PrintWriter(System.out, true), w, d);
     }
 
     /**
@@ -1092,14 +1093,14 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * @param d Number of digits after the decimal.
      */
 
-    public void print(PrintWriter output, int w, int d) {
+    public void print(final PrintWriter output, final int w, final int d) {
         DecimalFormat format = new DecimalFormat();
         format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
         format.setMinimumIntegerDigits(1);
         format.setMaximumFractionDigits(d);
         format.setMinimumFractionDigits(d);
         format.setGroupingUsed(false);
-        print(output, format, w + 2);
+        this.print(output, format, w + 2);
     }
 
     /**
@@ -1113,8 +1114,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * @see java.text.DecimalFormat#setDecimalFormatSymbols
      */
 
-    public void print(NumberFormat format, int width) {
-        print(new PrintWriter(System.out, true), format, width);
+    public void print(final NumberFormat format, final int width) {
+        this.print(new PrintWriter(System.out, true), format, width);
     }
 
     // DecimalFormat is a little disappointing coming from Fortran or C's

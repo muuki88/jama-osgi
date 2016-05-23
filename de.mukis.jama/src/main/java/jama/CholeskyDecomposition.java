@@ -1,5 +1,8 @@
 package jama;
 
+import java.io.Serializable;
+
+
    /** Cholesky Decomposition.
    <P>
    For a symmetric, positive definite matrix A, the Cholesky decomposition
@@ -10,7 +13,7 @@ package jama;
    be queried by the isSPD() method.
    */
 
-public class CholeskyDecomposition implements java.io.Serializable {
+public class CholeskyDecomposition implements Serializable {
 
 /* ------------------------
    Class variables
@@ -40,7 +43,7 @@ public class CholeskyDecomposition implements java.io.Serializable {
    @param  Arg   Square, symmetric matrix.
    */
 
-   public CholeskyDecomposition (Matrix Arg) {
+   public CholeskyDecomposition (final Matrix Arg) {
 
 
      // Initialize.
@@ -51,20 +54,31 @@ public class CholeskyDecomposition implements java.io.Serializable {
       // Main loop.
       for (int j = 0; j < n; j++) {
          double[] Lrowj = L[j];
-         double d = 0.0;
+         double d = A[j][j];
          for (int k = 0; k < j; k++) {
             double[] Lrowk = L[k];
-            double s = 0.0;
+            double s = A[j][k];
             for (int i = 0; i < k; i++) {
-               s += Lrowk[i]*Lrowj[i];
+               s -= Lrowk[i]*Lrowj[i];
             }
-            Lrowj[k] = s = (A[j][k] - s)/L[k][k];
-            d = d + s*s;
-            isspd = isspd & (A[k][j] == A[j][k]); 
+            Lrowj[k] = (s /= L[k][k]);
+            d -= s*s;
+            if (A[k][j] != A[j][k])
+            {
+                // A is not symmetric
+                isspd = false;
+            }
          }
-         d = A[j][j] - d;
-         isspd = isspd & (d > 0.0);
-         L[j][j] = Math.sqrt(Math.max(d,0.0));
+         
+         if (d <= 0d) {
+            isspd = false;
+            L[j][j] = 0d;
+         }
+         else {
+            L[j][j] = Math.sqrt(d);
+         }
+         
+         
          for (int k = j+1; k < n; k++) {
             L[j][k] = 0.0;
          }
@@ -160,7 +174,7 @@ public class CholeskyDecomposition implements java.io.Serializable {
    @exception  RuntimeException  Matrix is not symmetric positive definite.
    */
 
-   public Matrix solve (Matrix B) {
+   public Matrix solve (final Matrix B) {
       if (B.getRowDimension() != n) {
          throw new IllegalArgumentException("Matrix row dimensions must agree.");
       }
