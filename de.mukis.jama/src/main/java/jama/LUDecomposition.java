@@ -29,7 +29,7 @@ public class LUDecomposition implements java.io.Serializable {
    @serial row dimension.
    @serial pivot sign.
    */
-   private int m, n, pivsign; 
+   private int m, n, pivsign = 1; 
 
    /** Internal storage of pivot vector.
    @serial pivot vector.
@@ -56,7 +56,7 @@ public class LUDecomposition implements java.io.Serializable {
       for (int i = 0; i < m; i++) {
          piv[i] = i;
       }
-      pivsign = 1;
+      
       double[] LUrowi;
       double[] LUcolj = new double[m];
 
