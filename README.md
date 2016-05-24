@@ -1,5 +1,9 @@
 [![Build Status](https://secure.travis-ci.org/muuki88/jama-osgi.png)](http://travis-ci.org/muuki88/jama-osgi)
 
+# UNMAINTAINED
+
+This project is unmaintained and there are better, more complete linear-algebra packages out there.
+
 ## Tycho build for the Jama matrix library
 
 This project is a fork of [Jama](http://math.nist.gov/javanumerics/jama/) and provides
